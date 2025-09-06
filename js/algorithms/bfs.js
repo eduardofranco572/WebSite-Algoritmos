@@ -30,6 +30,7 @@ function initBFSGraph() {
     });
 
     cyBFS.ready(function() {
+        cyBFS.center();
         cyBFS.fit(undefined, 30);
     });
     
