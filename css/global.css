@@ -1,0 +1,48 @@
+:root{
+    --purple-color: #08000E;
+    --back-color: #000000; 
+    --blue-color: #11263B;
+    --white-color: #EFF1F3;
+    --green-cplor: #357266;
+    --gray-color: #959595;
+    --gray-dark-color: #1A1A1A;
+    --card-color: #0e0416;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body{
+    background-image: url('../img/wallpaperM.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--white-color);
+    overflow-x: hidden;
+    font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: "Karla", sans-serif;
+    font-weight: 800;
+}
+
+@font-face {
+  font-family: 'KH Interference';
+  src: url('../fonts/KHInterferenceTRIAL-Regular.woff2') format('woff2'),
+       url('../fonts/KHInterferenceTRIAL-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KH Interference';
+  src: url('../fonts/KHInterferenceTRIAL-Bold.woff2') format('woff2'),
+       url('../fonts/KHInterferenceTRIAL-Bold.woff') format('woff');
+  font-weight: 700; 
+  font-style: normal;
+}

@@ -1,0 +1,93 @@
+let cyBFS;
+let bfsAnimationTimeline;
+
+function initBFSGraph() {
+    if (cyBFS) { cyBFS.destroy(); }
+    if (bfsAnimationTimeline) { bfsAnimationTimeline.kill(); }
+
+    const bfsElements = [
+        { data: { id: 'A' }, position: { x: 200, y: 50 } }, { data: { id: 'B' }, position: { x: 100, y: 150 } },
+        { data: { id: 'C' }, position: { x: 300, y: 150 } }, { data: { id: 'D' }, position: { x: 50, y: 250 } },
+        { data: { id: 'E' }, position: { x: 200, y: 250 } }, { data: { id: 'F' }, position: { x: 350, y: 250 } }
+    ];
+    const bfsEdges = [
+        { data: { id: 'AB', source: 'A', target: 'B' } }, { data: { id: 'AC', source: 'A', target: 'C' } },
+        { data: { id: 'BD', source: 'B', target: 'D' } }, { data: { id: 'BE', source: 'B', 'target': 'E' } },
+        { data: { id: 'CE', source: 'C', target: 'E' } }, { data: { id: 'CF', source: 'C', 'target': 'F' } }
+    ];
+
+    cyBFS = cytoscape({
+        container: document.getElementById('cy'),
+        elements: bfsElements.concat(bfsEdges),
+        style: [
+            { selector: 'node', style: { 'background-color': '#555', 'label': 'data(id)', 'color': '#ccc', 'font-size': '12px', 'text-valign': 'center', 'text-halign': 'center', 'width': '30px', 'height': '30px', 'border-width': 2, 'border-color': '#888', 'transition-property': 'background-color, border-color, color', 'transition-duration': '0.5s' } },
+            { selector: 'edge', style: { 'width': 3, 'line-color': '#555', 'target-arrow-color': '#555', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'transition-property': 'line-color, target-arrow-color', 'transition-duration': '0.5s' } },
+            { selector: '.visited-node', style: { 'background-color': '#0e0416', 'border-color': '#888', 'color': '#FFFFFF' } },
+            { selector: '.visited-edge', style: { 'line-color': '#0e0416', 'target-arrow-color': '#0e0416' } }
+        ],
+        layout: { name: 'preset' },
+        zoomingEnabled: false, userPanningEnabled: false, autoungrabify: true
+    });
+
+    cyBFS.ready(function() {
+        cyBFS.fit(undefined, 30);
+    });
+    
+    setupAnimationButton();
+    return cyBFS; 
+}
+
+
+function setupAnimationButton() {
+    const btn = $('#bfs-animate-btn');
+    const btnIcon = btn.find('.material-symbols-outlined');
+    const btnTextNode = btn.contents().filter(function() { return this.nodeType === 3; })[0];
+    
+    bfsAnimationTimeline = gsap.timeline({ paused: true });
+
+    const bfsResult = cyBFS.elements().bfs({ root: '#A', directed: false });
+    
+    bfsResult.path.forEach((element, i) => {
+        bfsAnimationTimeline.add(() => {
+            element.addClass(element.isNode() ? 'visited-node' : 'visited-edge');
+        }, i * 0.5); 
+    });
+
+    bfsAnimationTimeline.eventCallback("onComplete", () => {
+        btnIcon.text('replay');
+        if (btnTextNode) btnTextNode.nodeValue = ' Reiniciar';
+        btn.prop('disabled', false).css({
+            'background-color': '#555',
+            'color': '#f0f0f0'
+        });
+    });
+
+    function resetAnimation() {
+        cyBFS.elements().removeClass('visited-node visited-edge');
+        btnIcon.text('play_arrow');
+        if (btnTextNode) btnTextNode.nodeValue = ' Animar';
+
+        btn.prop('disabled', false).css({
+            'background-color': '#f0f0f0',
+            'color': '#0e0416'
+        });
+        bfsAnimationTimeline.restart().pause();
+    }
+    
+    resetAnimation();
+
+    btn.off('click').on('click', function() {
+        if (bfsAnimationTimeline.isActive()) {
+            return;
+        }
+        if (bfsAnimationTimeline.progress() === 1) {
+            resetAnimation();
+        } else {
+            $(this).prop('disabled', true).css({
+                'background-color': '#333',
+                'color': '#ffffff' 
+            });
+            bfsAnimationTimeline.play();
+        }
+    });
+}

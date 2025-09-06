@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/container.css">
+    <link rel="stylesheet" href="./css/components/card.css">
+    <link rel="stylesheet" href="./css/components/carousel.css">
+    <link rel="stylesheet" href="./css/components/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Karla:ital,wght@0,200..800;1,200..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <title>Algoritmos</title>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header class="menu">
+        <div class="logo">
+            <h1>Algoritmos</h1>
+        </div>
+        <nav>
+            <ul>
+                <li>Sobre</li>
+                <li>Algoritmos</li>
+                <li>Contato</li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="about">
+            <div class="text-about">
+                <h1 class="title-animation">
+                    <span class="line first">Algoritmos</span>
+                    <span class="line">Conhecidos</span>
+                </h1>
+                <p class="text-animation">
+                    Um algoritmo é uma sequência finita de instruções bem definidas, como uma receita, projetada
+                    para resolver um problema ou executar uma tarefa. Eles são a base de toda a computação,
+                    processando dados de entrada para gerar uma saída.
+                </p>
+            </div>
+        </section>
+        <section class="algoritmos">
+            <section class="demo-algo">
+                <div class="container-demo">
+                    <div class="body-content body-explanation">
+                        <div class="carousel-container">
+                            <div class="carousel-track">
+                                <div class="carousel-item">
+                                    <h3>Busca em Largura (BFS)</h3>
+                                    <p>Esse algoritimos é capaz de obter a menor distancia entre dois nos de um grafo nao
+                                        ponderado. O BFS encontra o menor caminho verificando todas direções em sua volta,
+                                        é coma uma gota d'agua que se espalha uniformemente, explorando todos os caminhos
+                                        possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
+                                        um não é alcançado, é pelo caminho mais curto possível</p>
+                                    <img src="./img/pinguim-normal.png" alt="Ilustração de um pinguim analisando grafos">
+                                </div>
+
+                                <div class="carousel-item">
+                                    <h3>Busca em Largura (BFS)</h3>
+                                    <p>Esse algoritimos é capaz de obter a menor distancia entre dois nos de um grafo nao
+                                        ponderado. O BFS encontra o menor caminho verificando todas direções em sua volta,
+                                        é coma uma gota d'agua que se espalha uniformemente, explorando todos os caminhos
+                                        possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
+                                        um não é alcançado, é pelo caminho mais curto possível</p>
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev material-symbols-outlined">arrow_back_ios</button>
+                            <button class="carousel-btn next material-symbols-outlined">arrow_forward_ios</button>
+                        </div>
+                    </div>
+                    <div class="body-content body-example">
+                        <h2 class="example-title">Busca em Largura (BFS)</h2>
+                        <div id="cy" class="grafo-bfs"></div>
+                        <div class="animation-controls">
+                            <button id="bfs-animate-btn" class="btn-animate">
+                                <span class="material-symbols-outlined">play_arrow</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="body-content body-coding">
+                        <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
+// Exemplo de Algoritmo de Dijkstra em Java
+
+import java.util.*;
+
+public class Dijkstra {
+    public static void dijkstra(int[][] graph, int startNode) {
+        int n = graph.length;
+        int[] dist = new int[n];
+        boolean[] visited = new boolean[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[startNode] = 0;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.add(new int[]{startNode, 0});
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int u = current[0];
+
+            if (visited[u]) continue;
+            visited[u] = true;
+
+            for (int v = 0; v < n; v++) {
+                if (graph[u][v] != 0 && !visited[v] && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) {
+                    dist[v] = dist[u] + graph[u][v];
+                    pq.add(new int[]{v, dist[v]});
+                }
+            }
+        }
+
+        // Imprime as distâncias mais curtas
+        for (int i = 0; i < n; i++) {
+            System.out.println("Distância do nó " + startNode + " para " + i + " é " + dist[i]);
+        }
+    }
+}
+                        </code></pre>
+                    </div>
+                </div>
+                <div class="menu-demo">
+                    <div class="opitons-menu-demo">
+                        <span class="material-symbols-outlined active" title="Explicação">tooltip</span>
+                        <span class="material-symbols-outlined" title="Exemplo Animado">psychology</span>
+                        <span class="material-symbols-outlined" title="Código">code_blocks</span>
+                    </div>
+                </div>
+            </section>
+            <section class="grafos-algo">
+                <h1>teste</h1>
+            </section>
+        </section>
+    </main>
+    <footer>
+    </footer>
+
+   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+
+    <script src="./js/algorithms/bfs.js"></script>
+    <script src="./js/ui/carousel.js"></script>
+    <script src="./js/ui/tabs.js"></script>
+    <script src="./js/animation.js"></script>
+</body>
+</html>
