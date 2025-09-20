@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/container.css">
     <link rel="stylesheet" href="./css/components/card.css">
     <link rel="stylesheet" href="./css/components/carousel.css">
     <link rel="stylesheet" href="./css/components/menu.css">
     <link rel="stylesheet" href="./css/components/pinguim.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Karla:ital,wght@0,200..800;1,200..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -18,39 +22,41 @@
     <title>Algoritmos</title>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <header class="menu">
+     <div id="particles-js"></div>
+    
+    <header class="menu fixed-top d-flex justify-content-between align-items-center px-5">
         <div class="logo">
-            <h1>Algoritmos</h1>
+            <h1 class="fs-4 fw-bold">Algoritmos</h1>
         </div>
         <nav>
-            <ul>
-                <li>Sobre</li>
-                <li>Algoritmos</li>
-                <li>Contato</li>
+            <ul class="d-flex mb-0">
+                <li class="ms-4">Sobre</li>
+                <li class="ms-4">Algoritmos</li>
+                <li class="ms-4">Contato</li>
             </ul>
         </nav>
     </header>
-    <main class="container">
-        <section class="about">
+
+    <main class="container d-flex flex-column align-items-center px-4">
+        <section class="about d-flex justify-content-center align-items-center w-100 text-center mt-5 pt-5">
             <div class="text-about">
-                <h1 class="title-animation">
-                    <span class="line first">Algoritmos</span>
-                    <span class="line">Conhecidos</span>
+                <h1 class="title-animation display-1 fw-bolder mb-4">
+                    <span class="line first me-lg-5 pe-lg-5">Algoritmos</span>
+                    <span class="line ps-lg-5 ms-lg-5">Conhecidos</span>
                 </h1>
-                <p class="text-animation">
-                    Um algoritmo é uma sequência finita de instruções bem definidas, como uma receita, projetada
-                    para resolver um problema ou executar uma tarefa. Eles são a base de toda a computação,
-                    processando dados de entrada para gerar uma saída.
-                </p>
+                <div class="d-flex justify-content-center">
+                    <p class="text-animation fs-6 fw-normal lh-base mb-3 col-lg-8">
+                        Um algoritmo é uma sequência finita de instruções bem definidas, como uma receita, projetada
+                        para resolver um problema ou executar uma tarefa. Eles são a base de toda a computação,
+                        processando dados de entrada para gerar uma saída.
+                    </p>
+                </div>
             </div>
         </section>
-        <section>
-             
-        </section>
-        <section class="algoritmos">
-            <section class="demo-algo">
-                <div class="container-demo">
+
+        <section class="algoritmos w-100 mt-5 pt-5 d-flex flex-column align-items-center">
+            <section class="demo-algo row justify-content-center w-100 gx-4">
+                <div class="container-demo col-10 d-flex flex-column justify-content-center align-items-center overflow-hidden">
                     <div class="body-content body-explanation">
                         <div class="carousel-container">
                             <div class="carousel-track">
@@ -62,25 +68,7 @@
                                         possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
                                         um não é alcançado, é pelo caminho mais curto possível</p>
                                 </div>
-
-                                <div class="carousel-item">
-                                    <h3>Busca em Largura (BFS)</h3>
-                                    <p>Esse algoritimos é capaz de obter a menor distancia entre dois nos de um grafo nao
-                                        ponderado. O BFS encontra o menor caminho verificando todas direções em sua volta,
-                                        é coma uma gota d'agua que se espalha uniformemente, explorando todos os caminhos
-                                        possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
-                                        um não é alcançado, é pelo caminho mais curto possível</p>
                                 </div>
-
-                                <div class="carousel-item">
-                                    <h3>Busca em Largura (BFS)</h3>
-                                    <p>Esse algoritimos é capaz de obter a menor distancia entre dois nos de um grafo nao
-                                        ponderado. O BFS encontra o menor caminho verificando todas direções em sua volta,
-                                        é coma uma gota d'agua que se espalha uniformemente, explorando todos os caminhos
-                                        possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
-                                        um não é alcançado, é pelo caminho mais curto possível</p>
-                                </div>
-                            </div>
                             <button class="carousel-btn prev material-symbols-outlined">arrow_back_ios</button>
                             <button class="carousel-btn next material-symbols-outlined">arrow_forward_ios</button>
                         </div>
@@ -94,8 +82,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="body-content body-coding">
-                        <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
+                <div class="body-content body-coding">
+                    <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
 // Exemplo de Algoritmo de Dijkstra em Java
 
 import java.util.*;
@@ -135,15 +123,16 @@ public class Dijkstra {
                         </code></pre>
                     </div>
                 </div>
-                <div class="menu-demo">
-                    <div class="opitons-menu-demo">
+                <div class="menu-demo col-auto p-0 menu-padding">
+                    <div class="opitons-menu-demo h-100 d-flex flex-column justify-content-evenly align-items-center">
                         <span class="material-symbols-outlined active" title="Explicação">tooltip</span>
                         <span class="material-symbols-outlined" title="Exemplo Animado">psychology</span>
                         <span class="material-symbols-outlined" title="Código">code_blocks</span>
                     </div>
                 </div>
             </section>
-            <section class="grafos-algo">
+
+            <section class="grafos-algo mt-5 pt-5">
                 <h1>teste</h1>
             </section>
         </section>
@@ -152,7 +141,8 @@ public class Dijkstra {
     <footer>
     </footer>
 
-   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>

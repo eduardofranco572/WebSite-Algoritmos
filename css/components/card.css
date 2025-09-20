@@ -1,51 +1,31 @@
-.demo-algo{
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    width: 100%;
-}
-
-.container-demo{
+.container-demo {
     background-color: var(--card-color);
-    width: 80%;
     height: 35rem;
     border-radius: 2rem 0rem 2rem 2rem;
     box-shadow: -3px -5px 87px -1px rgb(62 56 67);
     -webkit-box-shadow: -3px -5px 87px -1px rgb(62 56 67);
     -moz-box-shadow: -3px -5px 87px -1px rgb(62 56 67);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-
 }
 
-.menu-demo{
+.menu-demo {
     background-color: var(--card-color);
-    width: 3rem;
-    height: 13rem;
+    height: 13rem; 
     border-radius: 0rem 1rem 1rem 0rem;
-     box-shadow: 29px -5px 29px -4px rgb(62 56 67);
+    box-shadow: 29px -5px 29px -4px rgb(62 56 67);
     -webkit-box-shadow: 29px -5px 29px -4px rgb(62 56 67);
     -moz-box-shadow: 29px -5px 29px -4px rgb(62 56 67);
     padding: 0rem 2rem;
 }
 
-.opitons-menu-demo{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+.opitons-menu-demo {
     user-select: none;
 }
 
-.opitons-menu-demo span{
+.opitons-menu-demo span {
     cursor: pointer;
 }
 
-.opitons-menu-demo .active{
+.opitons-menu-demo .active {
     background-color: white;
     padding: 6px;
     border-radius: 100%;
@@ -54,15 +34,6 @@
     box-shadow: 0 0 10px 2px rgba(160, 100, 255, 0.3);
 }
 
-.grafos-algo{
-    margin-top: 10rem;
-}
-
-.text-about{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .text-about, .demo-algo, .grafos-algo {
     pointer-events: auto;
@@ -124,7 +95,6 @@
     white-space: pre;
 }
 
-/* --- ESTILOS UNIFICADOS DA BARRA DE ROLAGEM --- */
 .body-coding::-webkit-scrollbar,
 .body-coding pre::-webkit-scrollbar {
     width: 6px;
@@ -235,4 +205,12 @@ div.code-toolbar:hover > .toolbar {
 
 :not(pre)>code[class*=language-], pre[class*=language-] {
     background: #1c1c1d !important;
+}
+
+.menu-demo.menu-padding {
+    padding: 12px !important; 
+}
+
+.opitons-menu-demo {
+    user-select: none;
 }
