@@ -10,7 +10,6 @@
     z-index: 1;
 }
 
-/* Container principal do menu, com a borda de separação */
 .menu-demo-top {
     background-color: var(--card-color);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -22,17 +21,16 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 2rem;
 }
-/* Flex container para as opções */
+
 .opitons-menu-demo {
     user-select: none;
     gap: 8px;
 }
 
-/* Estilo de cada opção do menu (Explicação, Exemplo, Código) */
 .menu-option {
-    display: flex; /* Para alinhar ícone e texto */
-    align-items: center; /* Centraliza verticalmente */
-    gap: 8px; /* Espaço entre ícone e texto */
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 20px;
     border-radius: 12px;
     cursor: pointer;
@@ -44,7 +42,7 @@
 }
 
 .menu-option .material-symbols-outlined {
-    font-size: 1.2rem; /* Ajusta o tamanho do ícone */
+    font-size: 1.2rem;
 }
 
 .menu-option:hover {
@@ -52,7 +50,6 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Estilo para a opção ATIVA */
 .opitons-menu-demo .active {
     background-color: var(--white-color);
     color: var(--card-color);

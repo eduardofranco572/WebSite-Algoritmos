@@ -1,5 +1,3 @@
-// Trab Maromo/js/ui/tabs.js
-
 $(document).ready(function() {
     $('.opitons-menu-demo .menu-option').on('click', function() {
         if ($(this).hasClass('active')) return;

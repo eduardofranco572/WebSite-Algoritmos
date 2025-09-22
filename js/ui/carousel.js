@@ -4,6 +4,8 @@ function initCustomCarousel() {
     const nextBtn = $('.carousel-btn.next');
     const prevBtn = $('.carousel-btn.prev');
 
+    const totalItems = items.length;
+
     if (items.length <= 1) {
         nextBtn.hide();
         prevBtn.hide();
@@ -14,21 +16,19 @@ function initCustomCarousel() {
     prevBtn.show();
     
     let currentIndex = 0;
-    const totalItems = items.length;
-
+    
     function updateCarousel() {
         const newTransform = -currentIndex * 100;
         track.css('transform', `translateX(${newTransform}%)`);
     }
 
-    // Remove eventos antigos para não acumular
     nextBtn.off('click');
     prevBtn.off('click');
 
     nextBtn.on('click', function() {
         currentIndex++;
         if (currentIndex >= totalItems) {
-            currentIndex = 0; // Volta para o primeiro
+            currentIndex = 0;
         }
         updateCarousel();
     });
@@ -36,7 +36,7 @@ function initCustomCarousel() {
     prevBtn.on('click', function() {
         currentIndex--;
         if (currentIndex < 0) {
-            currentIndex = totalItems - 1; // Vai para o último
+            currentIndex = totalItems - 1;
         }
         updateCarousel();
     });

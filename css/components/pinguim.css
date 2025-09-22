@@ -1,4 +1,3 @@
-/* Classe para esconder elementos */
 .hidden {
     display: none !important;
     opacity: 0;
@@ -14,7 +13,6 @@
     padding-top: 2rem;
 }
 
-/* Estilo do botão de navegação entre algoritmos */
 #next-algo-btn {
     position: fixed;
     bottom: 30px;
@@ -22,7 +20,6 @@
     z-index: 1000;
 }
 
-/* Estilo geral para os botões de viagem */
 .btn-viagem {
     padding: 12px 24px;
     background-color: var(--white-color);
@@ -58,3 +55,4 @@
 #start-journey-btn:hover .material-symbols-outlined {
     transform: translateY(5px);
 }
+

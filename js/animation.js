@@ -71,6 +71,9 @@ $(document).ready(function() {
 
     const tl = gsap.timeline();
 
+    // Define o estado inicial do botão como invisível e um pouco abaixo
+    gsap.set("#start-journey-btn", { opacity: 0, y: 20 });
+
     tl.from(".logo h1", { duration: 1.5, y: -50, opacity: 0, ease: "power3.out" }, 0.2);
     tl.from(".menu ul li", { duration: 1, y: -30, opacity: 0, ease: "power3.out", stagger: 0.2 }, 0.5);
 
@@ -94,9 +97,11 @@ $(document).ready(function() {
 
     tl.from(".text-animation", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out" }, 1.8);
 
+    // Anima o botão para o seu estado final (visível e na posição original)
     tl.to("#start-journey-btn", {
         duration: 1.5,
         opacity: 1,
+        y: 0,
         ease: "power3.out"
     }, 2.5);
 
