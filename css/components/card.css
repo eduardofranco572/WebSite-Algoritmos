@@ -1,43 +1,69 @@
 .container-demo {
     background-color: var(--card-color);
     height: 35rem;
-    border-radius: 2rem 0rem 2rem 2rem;
+    border-radius: 2rem;
     box-shadow: -3px -5px 87px -1px rgb(62 56 67);
     -webkit-box-shadow: -3px -5px 87px -1px rgb(62 56 67);
     -moz-box-shadow: -3px -5px 87px -1px rgb(62 56 67);
+    margin-top: -2.5rem;
+    position: relative;
+    z-index: 1;
 }
 
-.menu-demo {
+/* Container principal do menu, com a borda de separação */
+.menu-demo-top {
     background-color: var(--card-color);
-    height: 13rem; 
-    border-radius: 0rem 1rem 1rem 0rem;
-    box-shadow: 29px -5px 29px -4px rgb(62 56 67);
-    -webkit-box-shadow: 29px -5px 29px -4px rgb(62 56 67);
-    -moz-box-shadow: 29px -5px 29px -4px rgb(62 56 67);
-    padding: 0rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 0.8rem;
+    width: 60%;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
 }
-
+/* Flex container para as opções */
 .opitons-menu-demo {
     user-select: none;
+    gap: 8px;
 }
 
-.opitons-menu-demo span {
+/* Estilo de cada opção do menu (Explicação, Exemplo, Código) */
+.menu-option {
+    display: flex; /* Para alinhar ícone e texto */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 8px; /* Espaço entre ícone e texto */
+    padding: 8px 20px;
+    border-radius: 12px;
     cursor: pointer;
+    color: var(--gray-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    background-color: transparent;
+    transition: all 0.3s ease;
 }
 
+.menu-option .material-symbols-outlined {
+    font-size: 1.2rem; /* Ajusta o tamanho do ícone */
+}
+
+.menu-option:hover {
+    color: var(--white-color);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilo para a opção ATIVA */
 .opitons-menu-demo .active {
-    background-color: white;
-    padding: 6px;
-    border-radius: 100%;
-    color: #0e0416;
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 10px 2px rgba(160, 100, 255, 0.3);
+    background-color: var(--white-color);
+    color: var(--card-color);
+    box-shadow: 0 2px 15px rgba(255, 255, 255, 0.15);
 }
 
-
-.text-about, .demo-algo, .grafos-algo {
-    pointer-events: auto;
+.opitons-menu-demo .active:hover {
+    background-color: var(--white-color);
+    color: var(--card-color);
 }
+
 
 .body-content {
     border-radius: 1rem;
@@ -95,57 +121,6 @@
     white-space: pre;
 }
 
-.body-coding::-webkit-scrollbar,
-.body-coding pre::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-.body-coding::-webkit-scrollbar-track,
-.body-coding pre::-webkit-scrollbar-track {
-    background: #1a1a1d;
-    border-radius: 10px;
-}
-
-.body-coding::-webkit-scrollbar-thumb,
-.body-coding pre::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 10px;
-}
-
-.body-coding::-webkit-scrollbar-thumb:hover,
-.body-coding pre::-webkit-scrollbar-thumb:hover {
-    background-color: #323132;
-}
-
-div.code-toolbar > .toolbar {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-div.code-toolbar:hover > .toolbar {
-    opacity: 1;
-}
-
-.toolbar .copy-to-clipboard-button {
-    background: #555;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9em;
-    transition: background-color 0.2s ease;
-}
-
-.toolbar .copy-to-clipboard-button:hover {
-    background: #777;
-}
-
 .example-title {
     font-size: 1.3rem;
     text-align: center;
@@ -177,8 +152,8 @@ div.code-toolbar:hover > .toolbar {
     padding: 10px 20px;
     font-size: 1rem;
     font-family: "Roboto", sans-serif;
-    color: #f0f0f0; 
-    background-color: transparent; 
+    color: #f0f0f0;
+    background-color: transparent;
     border: 2px solid #f0f0f0;
     border-radius: 8px;
     cursor: pointer;
@@ -187,30 +162,12 @@ div.code-toolbar:hover > .toolbar {
 }
 
 .btn-animate:hover {
-    background-color: #f0f0f0; 
-    color: #0e0416; 
+    background-color: #f0f0f0;
+    color: #0e0416;
     transform: scale(1.05);
 }
 
-.btn-animate .material-symbols-outlined {
-    margin-left: 8px;
-    font-size: 20px;
-}
-
-.btn-animate:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    transform: scale(1);
-}
-
-:not(pre)>code[class*=language-], pre[class*=language-] {
+:not(pre)>code[class*=language-],
+pre[class*=language-] {
     background: #1c1c1d !important;
-}
-
-.menu-demo.menu-padding {
-    padding: 12px !important; 
-}
-
-.opitons-menu-demo {
-    user-select: none;
 }

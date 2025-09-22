@@ -9,6 +9,8 @@
 
 .about{
     margin-top: 11rem;
+    position: relative;
+    z-index: 1;
 }
 
 .about h1 {
@@ -35,4 +37,9 @@
 
 .algoritmos{
     z-index: 2;
+}
+
+
+.title2{
+    margin-left: 7rem;
 }

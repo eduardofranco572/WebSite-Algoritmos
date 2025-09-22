@@ -23,8 +23,8 @@
     <title>Algoritmos</title>
 </head>
 <body>
-     <div id="particles-js"></div>
-    
+    <div id="particles-js"></div>
+
     <header class="menu fixed-top d-flex justify-content-between align-items-center px-5">
         <div class="logo">
             <h1 class="fs-4 fw-bold">Algoritmos</h1>
@@ -38,93 +38,12 @@
         </nav>
     </header>
 
-         <div id="modal-overlay">
-            <section class="algoritmos w-100 d-flex flex-column align-items-center">
-                <section class="demo-algo row justify-content-center w-100 gx-4">
-                    <div class="container-demo col-10 d-flex flex-column justify-content-center align-items-center overflow-hidden">
-                        <div class="body-content body-explanation">
-                            <div class="carousel-container">
-                                <div class="carousel-track">
-                                    <div class="carousel-item">
-                                        <h3>Busca em Largura (BFS)</h3>
-                                        <p>Esse algoritimos é capaz de obter a menor distancia entre dois nos de um grafo nao
-                                            ponderado. O BFS encontra o menor caminho verificando todas direções em sua volta,
-                                            é coma uma gota d'agua que se espalha uniformemente, explorando todos os caminhos
-                                            possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que
-                                            um não é alcançado, é pelo caminho mais curto possível</p>
-                                    </div>
-                                    </div>
-                                <button class="carousel-btn prev material-symbols-outlined">arrow_back_ios</button>
-                                <button class="carousel-btn next material-symbols-outlined">arrow_forward_ios</button>
-                            </div>
-                        </div>
-                        <div class="body-content body-example">
-                            <h2 class="example-title">Busca em Largura (BFS)</h2>
-                            <div id="cy" class="grafo-bfs"></div>
-                            <div class="animation-controls">
-                                <button id="bfs-animate-btn" class="btn-animate">
-                                    <span class="material-symbols-outlined">play_arrow</span>
-                                </button>
-                            </div>
-                        </div>
-                    <div class="body-content body-coding">
-                        <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
-// Exemplo de Algoritmo de Dijkstra em Java
-
-import java.util.*;
-
-public class Dijkstra {
-    public static void dijkstra(int[][] graph, int startNode) {
-        int n = graph.length;
-        int[] dist = new int[n];
-        boolean[] visited = new boolean[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[startNode] = 0;
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
-        pq.add(new int[]{startNode, 0});
-
-        while (!pq.isEmpty()) {
-            int[] current = pq.poll();
-            int u = current[0];
-
-            if (visited[u]) continue;
-            visited[u] = true;
-
-            for (int v = 0; v < n; v++) {
-                if (graph[u][v] != 0 && !visited[v] && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) {
-                    dist[v] = dist[u] + graph[u][v];
-                    pq.add(new int[]{v, dist[v]});
-                }
-            }
-        }
-
-        // Imprime as distâncias mais curtas
-        for (int i = 0; i < n; i++) {
-            System.out.println("Distância do nó " + startNode + " para " + i + " é " + dist[i]);
-        }
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                    <div class="menu-demo col-auto p-0 menu-padding">
-                        <div class="opitons-menu-demo h-100 d-flex flex-column justify-content-evenly align-items-center">
-                            <span class="material-symbols-outlined active" title="Explicação">tooltip</span>
-                            <span class="material-symbols-outlined" title="Exemplo Animado">psychology</span>
-                            <span class="material-symbols-outlined" title="Código">code_blocks</span>
-                        </div>
-                    </div>
-                </section>
-            </section>
-        </div>
-
     <main class="container d-flex flex-column align-items-center px-4">
         <section class="about d-flex justify-content-center align-items-center w-100 text-center pt-5">
             <div class="text-about">
                 <h1 class="title-animation display-1 fw-bolder mb-4">
                     <span class="line first me-lg-5 pe-lg-5">Algoritmos</span>
-                    <span class="line ps-lg-5 ms-lg-5">Conhecidos</span>
+                    <span class="title2 line ps-lg-5 ms-lg-5">Conhecidos</span>
                 </h1>
                 <div class="d-flex justify-content-center">
                     <p class="text-animation fs-6 fw-normal lh-base mb-3 col-lg-8">
@@ -133,51 +52,84 @@ public class Dijkstra {
                         processando dados de entrada para gerar uma saída.
                     </p>
                 </div>
+                <button id="start-journey-btn" class="btn-viagem">
+                    Iniciar Jornada
+                    <span class="material-symbols-outlined">arrow_downward</span>
+                </button>
             </div>
         </section>
     </main>
 
-    <div id="algorithm-graph-container">
-        <div class="graph-content">
-            <div class="graph-trunk"></div>
-
-            <svg id="graph-svg" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path id="path-node-1" d="M 50 20, 15 20" />
-                <path id="path-node-2" d="M 50 35, 85 35" />
-                <path id="path-node-3" d="M 50 50, 12 50" />
-                <path id="path-node-4" d="M 50 65, 90 65" />
-                <path id="path-node-5" d="M 50 80, 15 80" />
-            </svg>
-
-            <div id="node-1" class="graph-node-wrapper" style="top: 20%; left: 15%;" data-algo="BFS">
-                <div class="graph-node"><h3>BFS</h3></div>
+    <div id="journey-container" class="hidden">
+        <section class="algoritmos w-100 d-flex flex-column align-items-center">
+            <div class="menu-demo-top">
+                <div class="opitons-menu-demo d-flex justify-content-center align-items-center">
+                    <span class="menu-option active">
+                        <span class="material-symbols-outlined">tooltip</span>
+                        Explicação
+                    </span>
+                    <span class="menu-option">
+                        <span class="material-symbols-outlined">psychology</span>
+                        Exemplo
+                    </span>
+                    <span class="menu-option">
+                        <span class="material-symbols-outlined">code_blocks</span>
+                        Código
+                    </span>
+                </div>
             </div>
+            <section class="demo-algo row justify-content-center w-100 gx-4">
+                <div class="container-demo col-10 d-flex flex-column justify-content-center align-items-center overflow-hidden">
+                    <div class="body-content body-explanation" style="display: flex;">
+                        <div class="carousel-container">
+                           <div class="carousel-track">
+                                <div class="carousel-item">
+                                    <h3>Busca em Largura (BFS)</h3>
+                                    <p>Esse algoritmo é capaz de obter a menor distância entre dois nós de um grafo não ponderado. O BFS encontra o menor caminho verificando todas as direções à sua volta, é como uma gota d'água que se espalha uniformemente, explorando todos os caminhos possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que um nó é alcançado, é pelo caminho mais curto possível.</p>
+                                </div>
+                                <div class="carousel-item">
+                                    <h3>Como Funciona?</h3>
+                                    <p>O BFS utiliza uma estrutura de dados de fila (FIFO - First-In, First-Out). Ele começa em um nó raiz, explora todos os seus vizinhos e, em seguida, para cada um desses vizinhos, explora os vizinhos ainda não visitados, e assim por diante, nível por nível no grafo.</p>
+                                </div>
+                                <div class="carousel-item">
+                                    <h3>Casos de Uso</h3>
+                                    <p>É amplamente utilizado para encontrar o caminho mais curto em grafos sem pesos, em web crawlers para descobrir todas as páginas de um site, em redes sociais para encontrar "amigos de amigos" e na solução de quebra-cabeças como o Cubo de Rubik.</p>
+                                </div>
+                            </div>
 
-            <div id="node-2" class="graph-node-wrapper" style="top: 35%; left: 85%;" data-algo="Matriz DR">
-                <div class="graph-node"><h3>Matriz DR</h3></div>
-            </div>
-            
-            <div id="node-3" class="graph-node-wrapper" style="top: 50%; left: 12%;" data-algo="Dijkstra">
-                <div class="graph-node"><h3>Dijkstra</h3></div>
-            </div>
-
-            <div id="node-4" class="graph-node-wrapper" style="top: 65%; left: 90%;" data-algo="MTS">
-                <div class="graph-node"><h3>MTS</h3></div>
-            </div>
-
-            <div id="node-5" class="graph-node-wrapper" style="top: 80%; left: 15%;" data-algo="Knapsack">
-                <div class="graph-node"><h3>Knapsack</h3></div>
-            </div>
-        </div>
+                            <button class="carousel-btn prev material-symbols-outlined"></button>
+                            <button class="carousel-btn next material-symbols-outlined"></button>
+                        </div>
+                    </div>
+                    <div class="body-content body-example">
+                        <h2 class="example-title">Busca em Largura (BFS)</h2>
+                        <div id="cy" class="grafo-bfs"></div>
+                        <div class="animation-controls">
+                            <button id="bfs-animate-btn" class="btn-animate">
+                                <span class="material-symbols-outlined">play_arrow</span> Animar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="body-content body-coding">
+                        <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
+// Código para o algoritmo atual...
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+        </section>
     </div>
 
-    <footer>
-        <h1>teste</h1>
-    </footer>
+    <button id="next-algo-btn" class="btn-viagem hidden">
+        Próximo Algoritmo
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+    
+    <footer class="text-center py-4">
+        </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -191,6 +143,5 @@ public class Dijkstra {
     <script src="./js/ui/tabs.js"></script>
     <script src="./js/ui/pinguim.js"></script>
     <script src="./js/animation.js"></script>
-    <script src="./js/graph-animation.js"></script>
 </body>
 </html>

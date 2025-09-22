@@ -4,27 +4,37 @@ window.addEventListener('load', function() {
 
     if ($('#algorithm-graph-container').length) {
         
+        // Vamos conectar os nós em sequência para criar o caminho da "nebulosa"
+        const nodes = gsap.utils.toArray('.graph-node-wrapper');
         const svg = document.getElementById('graph-svg');
         const paths = svg.querySelectorAll('path');
 
-        paths.forEach((path, index) => {
-            const startX = parseFloat(path.getAttribute('d').match(/M\s*([0-9.]+)/)[1]);
-            const startY = parseFloat(path.getAttribute('d').match(/M\s*[0-9.]+\s*([0-9.]+)/)[1]);
-            const endX = parseFloat(path.getAttribute('d').match(/,\s*([0-9.]+)/)[1]);
-            const endY = parseFloat(path.getAttribute('d').match(/,\s*[0-9.]+\s*([0-9.]+)/)[1]);
+        // Função para criar uma curva suave entre dois pontos
+        function createCurve(startEl, endEl, pathEl) {
+            const startX = parseFloat(startEl.style.left);
+            const startY = parseFloat(startEl.style.top);
+            const endX = parseFloat(endEl.style.left);
+            const endY = parseFloat(endEl.style.top);
 
-            const amplitude = 5;
-            const c1x = startX + (endX - startX) * 0.25;
-            const c1y = startY + (endX < startX ? amplitude : -amplitude);
-            const c2x = startX + (endX - startX) * 0.75;
-            const c2y = startY + (endX < startX ? -amplitude : amplitude);
+            // Controla a "barriga" da curva
+            const controlX1 = startX;
+            const controlY1 = startY + (endY - startY) * 0.5;
+            const controlX2 = endX;
+            const controlY2 = endY - (endY - startY) * 0.5;
+
+            pathEl.setAttribute('d', `M ${startX} ${startY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${endX} ${endY}`);
             
-            path.setAttribute('d', `M ${startX} ${startY} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${endX} ${endY}`);
+            const length = pathEl.getTotalLength();
+            pathEl.style.strokeDasharray = length;
+            pathEl.style.strokeDashoffset = length;
+        }
 
-            const length = path.getTotalLength();
-            path.style.strokeDasharray = length;
-            path.style.strokeDashoffset = length;
-        });
+        // Criar as curvas entre os nós sequenciais
+        for (let i = 0; i < nodes.length - 1; i++) {
+            if (paths[i]) {
+                createCurve(nodes[i], nodes[i+1], paths[i]);
+            }
+        }
         
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -36,54 +46,57 @@ window.addEventListener('load', function() {
             }
         });
 
-        tl.fromTo(".graph-trunk", { height: "0%" }, { height: "100%", duration: 5, ease: "none" });
+        // Ocultamos o tronco via CSS, então não precisamos mais animá-lo
+        // tl.fromTo(".graph-trunk", { height: "0%" }, { height: "100%", duration: 5, ease: "none" });
 
-        // Etapa 1
-        tl.to("#path-node-1", { strokeDashoffset: 0, duration: 2, ease: "none" }, 0);
-        tl.fromTo("#node-1 .graph-node", { opacity: 0, xPercent: -20 }, { opacity: 1, xPercent: 0, scale: 1, duration: 1.5, ease: "power1.out" }, 0.5);
+        // Animar o primeiro nó imediatamente
+        tl.fromTo("#node-1 .graph-node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.5, ease: "power1.out" }, 0);
+
+        // Animar os nós e caminhos restantes em sequência
+        tl.to("#path-node-1", { strokeDashoffset: 0, duration: 2, ease: "none" }, 0.5);
+        tl.fromTo("#node-2 .graph-node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.5, ease: "power1.out" }, 1.5);
         
-        tl.to("#path-node-2", { strokeDashoffset: 0, duration: 2, ease: "none" }, 0.5);
-        tl.fromTo("#node-2 .graph-node", { opacity: 0, xPercent: 20 }, { opacity: 1, xPercent: 0, scale: 1, duration: 1.5, ease: "power1.out" }, 1);
+        tl.to({}, {duration: 2}); 
+
+        tl.to("#path-node-2", { strokeDashoffset: 0, duration: 2, ease: "none" }, 4);
+        tl.fromTo("#node-3 .graph-node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.5, ease: "power1.out" }, 5);
+        
+        tl.to({}, {duration: 2}); 
+
+        tl.to("#path-node-3", { strokeDashoffset: 0, duration: 2, ease: "none" }, 7.5);
+        tl.fromTo("#node-4 .graph-node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.5, ease: "power1.out" }, 8.5);
 
         tl.to({}, {duration: 2}); 
 
-        // Etapa 2
-        tl.to("#path-node-3", { strokeDashoffset: 0, duration: 2, ease: "none" }, 4.5);
-        tl.fromTo("#node-3 .graph-node", { opacity: 0, xPercent: -20 }, { opacity: 1, xPercent: 0, scale: 1, duration: 1.5, ease: "power1.out" }, 5);
-
-        tl.to("#path-node-4", { strokeDashoffset: 0, duration: 2, ease: "none" }, 5);
-        tl.fromTo("#node-4 .graph-node", { opacity: 0, xPercent: 20 }, { opacity: 1, xPercent: 0, scale: 1, duration: 1.5, ease: "power1.out" }, 5.5);
-        
-        tl.to({}, {duration: 2});
-
-        // Etapa 3
-        tl.to("#path-node-5", { strokeDashoffset: 0, duration: 2, ease: "none" }, 8.5);
-        tl.fromTo("#node-5 .graph-node", { opacity: 0, xPercent: -20 }, { opacity: 1, xPercent: 0, scale: 1, duration: 1.5, ease: "power1.out" }, 9);
+        tl.to("#path-node-4", { strokeDashoffset: 0, duration: 2, ease: "none" }, 11);
+        tl.fromTo("#node-5 .graph-node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 1.5, ease: "power1.out" }, 12);
     }
-
 
     // --- LÓGICA DO MODAL (sem alterações) ---
     const modalOverlay = $("#modal-overlay");
-    const modal = $("#demo-algo-modal");
+    const modal = $(".algoritmos"); // Alvo correto do modal
 
     $('.graph-node').on('click', function() {
         const algoName = $(this).parent().data('algo');
         modal.find('.example-title').text(algoName);
+        
+        // Resetar para a primeira aba (Explicação) ao abrir
+        $('.opitons-menu-demo span').removeClass('active');
+        $('.opitons-menu-demo span').eq(0).addClass('active');
+        $('.body-content').hide();
+        $('.body-content').eq(0).show();
+        
         gsap.to(modalOverlay, { autoAlpha: 1, duration: 0.4 });
-        gsap.to(modal, { scale: 1, duration: 0.4, delay: 0.1 });
     });
 
     function closeModal() {
-        gsap.to(modal, { scale: 0.9, duration: 0.3 });
-        gsap.to(modalOverlay, { autoAlpha: 0, duration: 0.3, delay: 0.1 });
+        gsap.to(modalOverlay, { autoAlpha: 0, duration: 0.3 });
     }
 
-    $('.close-modal-btn, #modal-overlay').on('click', function() {
-        closeModal();
+    // Fechar o modal
+    modalOverlay.on('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
     });
-
-    $('#demo-algo-modal').on('click', function(e) {
-        e.stopPropagation();
-    });
-
 });

@@ -1,28 +1,32 @@
+// Trab Maromo/js/ui/tabs.js
+
 $(document).ready(function() {
-    // LÓGICA DE TROCA DE ABAS
-    $('.opitons-menu-demo span').on('click', function() {
+    $('.opitons-menu-demo .menu-option').on('click', function() {
         if ($(this).hasClass('active')) return;
 
-        $('.opitons-menu-demo span').removeClass('active');
+        $('.opitons-menu-demo .menu-option').removeClass('active');
         $(this).addClass('active');
 
-        $('.body-content').fadeOut(200);
+        $('.body-content').fadeOut(150); // Fade out mais rápido
         const tabIndex = $(this).index();
         const activeTab = $('.body-content').eq(tabIndex);
 
-        activeTab.delay(200).fadeIn(200, function() {
+        activeTab.delay(150).fadeIn(150, function() {
+            // Verificamos qual aba está ativa após o fadeIn
             if (activeTab.hasClass('body-explanation')) {
-                 if (!activeTab.data('carousel-initialized')) {
-                    initCustomCarousel();
-                    activeTab.data('carousel-initialized', true);
-                }
-
+                // **CHAMADA CORRETA**
+                // Inicializa o carrossel agora que ele está visível
+                initCustomCarousel();
             } else if (activeTab.hasClass('body-example')) {
-                const cy = initBFSGraph(); 
-                
+                initBFSGraph();
             } else if (activeTab.hasClass('body-coding')) {
-                 Prism.highlightAll();
+                Prism.highlightAll();
             }
         });
     });
+
+    // Chama a inicialização uma vez no carregamento da página para a primeira aba
+    if ($('.body-explanation').is(':visible')) {
+        initCustomCarousel();
+    }
 });

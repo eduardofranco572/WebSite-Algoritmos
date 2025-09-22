@@ -69,54 +69,42 @@ $(document).ready(function() {
     });
 
 
-    // Animação da LOGO
-    gsap.from(".logo h1", {
-        duration: 1.5,
-        y: -50,
-        opacity: 0,
-        ease: "power3.out",
-        delay: 0.2
+    const tl = gsap.timeline();
+
+    // 2. Animação da LOGO e MENU (inicia em 0.2s)
+    tl.from(".logo h1", { duration: 1.5, y: -50, opacity: 0, ease: "power3.out" }, 0.2);
+    tl.from(".menu ul li", { duration: 1, y: -30, opacity: 0, ease: "power3.out", stagger: 0.2 }, 0.5);
+
+    // 3. Animação do TÍTULO (inicia em 1s)
+    // Primeiro, prepara o texto dividindo em caracteres
+    $(".title-animation .line").each(function() {
+        const line = $(this);
+        const text = line.text();
+        const chars = text.split("").map(char => {
+            return char === " " ? " " : `<span class="char">${char}</span>`;
+        }).join("");
+        line.html(chars);
+        // Esconde os caracteres inicialmente
+        gsap.set($(this).find('.char'), { opacity: 0, y: 20 });
     });
 
-    //Animação dos itens do menu
-    gsap.from(".menu ul li", {
+    // Adiciona a animação dos caracteres à timeline
+    tl.to(".title-animation .char", {
+        opacity: 1,
+        y: 0,
+        stagger: 0.08, // Aumentado para ser mais lento
         duration: 1,
-        y: -30,
-        opacity: 0,
-        ease: "power3.out",
-        stagger: 0.2,
-        delay: 0.5
-    });
-    
-    //Animação do titulo
-    function setupSplitting() {
-        $(".title-animation .line").each(function() {
-            const line = $(this);
-            const text = line.text();
-            const chars = text.split("").map(char => {
-                return char === " " ? " " : `<span class="char">${char}</span>`;
-            }).join("");
-            line.html(chars);
-        });
-        
-        gsap.to(".title-animation .char", {
-            y: 0,
-            stagger: 0.05,
-            delay: 1,
-            duration: 1,
-            ease: "power4.out",
-        });
-    }
+        ease: "power4.out",
+    }, 1); // Inicia em 1 segundo na timeline
 
-    setupSplitting();
+    // 4. Animação do PARÁGRAFO (inicia em 1.8s)
+    tl.from(".text-animation", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out" }, 1.8);
 
-    //Animação do parágrafo
-    gsap.from(".text-animation", {
+    // 5. Animação do BOTÃO "INICIAR JORNADA" (inicia após o texto)
+    tl.to("#start-journey-btn", {
         duration: 1.5,
-        y: 50,
-        opacity: 0,
-        ease: "power3.out",
-        delay: 1.8
-    });
+        opacity: 1,
+        ease: "power3.out"
+    }, 2.5);
 
 });
