@@ -32,6 +32,14 @@ $(document).ready(function() {
         }
     ];
 
+    const backgroundImages = [
+        '../img/wallpaperM1.jpg',
+        '../img/wallpaperM2.jpg',
+        '../img/wallpaperM3.jpg',
+        '../img/wallpaperM4.jpg',
+        '../img/wallpaperM5.jpg'
+    ];
+    let currentBgIndex = 0;
     let currentIndex = 0;
 
     function updateAlgorithmView(index) {
@@ -54,52 +62,64 @@ $(document).ready(function() {
         initCustomCarousel();
     }
 
+    // --- FUNÇÃO DE ANIMAÇÃO DE VIAGEM REUTILIZÁVEL ---
+    function playWarpTransition(onCompleteCallback) {
+        const tl = gsap.timeline();
+
+        // 1. Ativa o warp (aceleração)
+        tl.call(triggerWarp);
+
+        // 2. Fade to white (flash)
+        tl.to('#flash-overlay', {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.in"
+        }, "+=0.5");
+
+        // 3. No pico do branco, executa o callback (troca de conteúdo e fundo)
+        tl.call(() => {
+            // Troca a imagem de fundo
+            currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
+            $('body').css('background-image', `url('${backgroundImages[currentBgIndex]}')`);
+
+            if (onCompleteCallback) {
+                onCompleteCallback();
+            }
+        });
+
+        // 4. Fade out do branco para revelar o novo conteúdo
+        tl.to('#flash-overlay', {
+            opacity: 0,
+            duration: 0.5
+        }, "+=0.2");
+    }
+
+
     // --- TRANSIÇÃO INICIAL ---
     $('#start-journey-btn').on('click', function() {
-        const tl = gsap.timeline();
-        
-        // 1. Some com o conteúdo inicial
-        tl.to(['header', 'main > .about'], {
+        gsap.to(['header', 'main > .about'], {
             duration: 0.5,
             opacity: 0,
             onComplete: function() {
                 $(this.targets()).addClass('hidden').css('display', 'none');
-            }
-        });
-
-        // 2. Some com as partículas
-        tl.to('#particles-js', {
-            duration: 0.5,
-            opacity: 0,
-            onComplete: () => {
-                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
-                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
-                }
+                
+                // Remove o background de particulas e mostra o de estrelas
+                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) { window.pJSDom[0].pJS.fn.vendors.destroypJS(); }
                 $('#particles-js').remove();
+                $('#starfield').show();
+                
+                // Inicia a animação de viagem
+                playWarpTransition(() => {
+                    // Mostra o container do algoritmo
+                     $('#journey-container, #next-algo-btn').removeClass('hidden').css({
+                        'display': 'flex',
+                        'opacity': 1
+                    });
+                });
             }
-        }, "-=0.5");
-        
-        // 3. Ativa o warp do starfield e mostra o canvas
-        tl.call(function() {
-            $('#starfield').show();
-            triggerWarp(); 
         });
-        
-        // 4. Mostra o journey-container vindo do "fundo"
-        tl.fromTo('#journey-container, #next-algo-btn', 
-            { scale: 0, opacity: 0 },
-            {
-                duration: 2,
-                scale: 1,
-                opacity: 1,
-                ease: "power2.inOut",
-                onStart: function() {
-                    $('#journey-container, #next-algo-btn').removeClass('hidden').css('display', 'flex');
-                }
-            }, 
-            "+=0.2" // Começa um pouco depois do warp
-        );
     });
+
 
     // --- TRANSIÇÃO ENTRE ALGORITMOS ---
     $('#next-algo-btn').on('click', function() {
@@ -108,32 +128,25 @@ $(document).ready(function() {
         // 1. Some com o card atual
         tl.to('.algoritmos', {
             duration: 0.4,
-            opacity: 0,
+            autoAlpha: 0,
             scale: 0.9,
-            ease: "power2.in"
-        });
-        
-        // 2. Ativa o warp
-        tl.call(triggerWarp);
-        
-        // 3. Atualiza e mostra o novo card
-        tl.call(function() {
-            currentIndex = (currentIndex + 1) % algoritmos.length;
-            updateAlgorithmView(currentIndex);
-        }, null, "+=0.5"); // Espera um pouco para atualizar o conteúdo
+            ease: "power2.in",
+            onComplete: () => {
+                // 2. Inicia a viagem
+                playWarpTransition(() => {
+                    // 3. Atualiza o conteúdo do card
+                    currentIndex = (currentIndex + 1) % algoritmos.length;
+                    updateAlgorithmView(currentIndex);
 
-        tl.fromTo('.algoritmos', 
-            { scale: 0, opacity: 0 },
-            {
-                delay: 1, // Espera a maior parte do warp passar
-                duration: 1,
-                scale: 1,
-                opacity: 1,
-                ease: "power2.out"
+                    // 4. Mostra o novo card subitamente
+                    gsap.set('.algoritmos', {
+                        autoAlpha: 1,
+                        scale: 1
+                    });
+                });
             }
-        );
+        });
     });
 
-    // Inicializa a view do primeiro algoritmo no carregamento da página
     updateAlgorithmView(currentIndex);
 });
