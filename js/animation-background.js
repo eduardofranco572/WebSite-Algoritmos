@@ -54,7 +54,6 @@ for (let i = 0; i < numStars; i++) {
 }
 
 function triggerWarp() {
-    // Agora, usamos GSAP para uma aceleração suave
     gsap.to({ val: targetSpeed }, {
         val: warpSpeed,
         duration: warpDuration / 1000, // Convertendo ms para segundos
@@ -63,7 +62,7 @@ function triggerWarp() {
             targetSpeed = this.targets()[0].val;
         },
         onComplete: function() {
-            // Desacelera suavemente de volta ao normal
+            // volta ao normal
             gsap.to({ val: targetSpeed }, {
                 val: 0.2,
                 duration: 1.0,
@@ -80,7 +79,7 @@ function triggerWarp() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // A interpolação de velocidade agora é controlada pelo GSAP em triggerWarp
+    // A interpolação de velocidade com o triggerWarp
     speed = targetSpeed;
 
     for (const star of stars) {

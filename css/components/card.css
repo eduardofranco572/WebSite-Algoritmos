@@ -14,8 +14,7 @@
     background-color: var(--card-color);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 0.8rem;
-    width: 60%;
+    padding: 0.8rem 3rem;
     position: relative;
     z-index: 2;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -167,4 +166,27 @@
 :not(pre)>code[class*=language-],
 pre[class*=language-] {
     background: #1c1c1d !important;
+}
+
+.body-coding::-webkit-scrollbar,
+.body-coding pre::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.body-coding::-webkit-scrollbar-track,
+.body-coding pre::-webkit-scrollbar-track {
+    background: #1a1a1d;
+    border-radius: 10px;
+}
+
+.body-coding::-webkit-scrollbar-thumb,
+.body-coding pre::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.body-coding::-webkit-scrollbar-thumb:hover,
+.body-coding pre::-webkit-scrollbar-thumb:hover {
+    background-color: #323132;
 }

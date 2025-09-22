@@ -6,14 +6,13 @@ $(document).ready(function() {
         $(this).addClass('active');
 
         $('.body-content').fadeOut(150); // Fade out mais rápido
+
         const tabIndex = $(this).index();
         const activeTab = $('.body-content').eq(tabIndex);
 
+        // Exibe a aba ativa com um fade-in após o fade-out completar
         activeTab.delay(150).fadeIn(150, function() {
-            // Verificamos qual aba está ativa após o fadeIn
             if (activeTab.hasClass('body-explanation')) {
-                // **CHAMADA CORRETA**
-                // Inicializa o carrossel agora que ele está visível
                 initCustomCarousel();
             } else if (activeTab.hasClass('body-example')) {
                 initBFSGraph();
@@ -23,7 +22,7 @@ $(document).ready(function() {
         });
     });
 
-    // Chama a inicialização uma vez no carregamento da página para a primeira aba
+    // Chama a inicialização para primeira aba
     if ($('.body-explanation').is(':visible')) {
         initCustomCarousel();
     }

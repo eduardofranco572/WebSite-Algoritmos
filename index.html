@@ -13,10 +13,8 @@
     <link rel="stylesheet" href="./css/components/card.css">
     <link rel="stylesheet" href="./css/components/carousel.css">
     <link rel="stylesheet" href="./css/components/menu.css">
-    <link rel="stylesheet" href="./css/components/pinguim.css">
-    <link rel="stylesheet" href="./css/components/graph.css">
-    <link rel="stylesheet" href="./css/components/background.css">
-    
+    <link rel="stylesheet" href="./css/components/journey.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Karla:ital,wght@0,200..800;1,200..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -85,20 +83,7 @@
                 <div class="container-demo col-10 d-flex flex-column justify-content-center align-items-center overflow-hidden">
                     <div class="body-content body-explanation" style="display: flex;">
                         <div class="carousel-container">
-                           <div class="carousel-track">
-                                <div class="carousel-item">
-                                    <h3>Busca em Largura (BFS)</h3>
-                                    <p>Esse algoritmo é capaz de obter a menor distância entre dois nós de um grafo não ponderado. O BFS encontra o menor caminho verificando todas as direções à sua volta, é como uma gota d'água que se espalha uniformemente, explorando todos os caminhos possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que um nó é alcançado, é pelo caminho mais curto possível.</p>
-                                </div>
-                                <div class="carousel-item">
-                                    <h3>Como Funciona?</h3>
-                                    <p>O BFS utiliza uma estrutura de dados de fila (FIFO - First-In, First-Out). Ele começa em um nó raiz, explora todos os seus vizinhos e, em seguida, para cada um desses vizinhos, explora os vizinhos ainda não visitados, e assim por diante, nível por nível no grafo.</p>
-                                </div>
-                                <div class="carousel-item">
-                                    <h3>Casos de Uso</h3>
-                                    <p>É amplamente utilizado para encontrar o caminho mais curto em grafos sem pesos, em web crawlers para descobrir todas as páginas de um site, em redes sociais para encontrar "amigos de amigos" e na solução de quebra-cabeças como o Cubo de Rubik.</p>
-                                </div>
-                            </div>
+                           <div class="carousel-track"> </div>
 
                             <button class="carousel-btn prev material-symbols-outlined"></button>
                             <button class="carousel-btn next material-symbols-outlined"></button>
@@ -115,7 +100,42 @@
                     </div>
                     <div class="body-content body-coding">
                         <pre data-copy="Copiar" data-copy-error="Erro!" data-copy-success="Copiado!"><code class="language-java">
-// Código para o algoritmo atual...
+// Exemplo de Algoritmo de Dijkstra em Java
+
+import java.util.*;
+
+public class Dijkstra {
+    public static void dijkstra(int[][] graph, int startNode) {
+        int n = graph.length;
+        int[] dist = new int[n];
+        boolean[] visited = new boolean[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[startNode] = 0;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.add(new int[]{startNode, 0});
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int u = current[0];
+
+            if (visited[u]) continue;
+            visited[u] = true;
+
+            for (int v = 0; v < n; v++) {
+                if (graph[u][v] != 0 && !visited[v] && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) {
+                    dist[v] = dist[u] + graph[u][v];
+                    pq.add(new int[]{v, dist[v]});
+                }
+            }
+        }
+
+        // Imprime as distâncias mais curtas
+        for (int i = 0; i < n; i++) {
+            System.out.println("Distância do nó " + startNode + " para " + i + " é " + dist[i]);
+        }
+    }
+}
                         </code></pre>
                     </div>
                 </div>
@@ -124,12 +144,23 @@
     </div>
 
     <button id="next-algo-btn" class="btn-viagem hidden">
-        Próximo Algoritmo
-        <span class="material-symbols-outlined">arrow_forward</span>
+        <span class="btn-viagem-text">
+            Próximo Algoritmo
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </span>
+        <span class="btn-viagem-fill"></span>
+    </button>
+
+    <button id="back-to-start-btn" class="btn-viagem hidden">
+        <span class="btn-viagem-text">
+            Voltar ao Início
+            <span class="material-symbols-outlined">restart_alt</span>
+        </span>
+        <span class="btn-viagem-fill"></span>
     </button>
     
-    <footer class="text-center py-4">
-        </footer>
+    <footer>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -144,7 +175,7 @@
     <script src="./js/algorithms/bfs.js"></script>
     <script src="./js/ui/carousel.js"></script>
     <script src="./js/ui/tabs.js"></script>
-    <script src="./js/ui/pinguim.js"></script>
+    <script src="./js/ui/journey.js"></script>
     <script src="./js/animation.js"></script>
     <script src="./js/animation-background.js"></script>
 </body>

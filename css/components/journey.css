@@ -10,15 +10,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
 }
 
-#next-algo-btn {
+#next-algo-btn, #back-to-start-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 16px;
+    right: 27px;
     z-index: 1000;
 }
+
 
 .btn-viagem {
     padding: 12px 24px;
@@ -51,7 +51,48 @@
     transform: translateX(5px);
 }
 
-/* Ajuste específico para o ícone de seta para baixo */
+
 #start-journey-btn:hover .material-symbols-outlined {
     transform: translateY(5px);
+}
+
+.btn-viagem {
+    position: relative; 
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-viagem-text {
+    position: relative;
+    z-index: 2;
+    color: var(--card-color);
+    transition: color 0.4s ease-out;
+    pointer-events: none; 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-viagem-fill {
+    position: absolute;
+    z-index: 1; 
+    width: 60px; 
+    height: 60px;
+    background: var(--card-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    will-change: transform, top, left; 
+}
+
+.btn-viagem:hover .btn-viagem-text {
+    color: var(--white-color);
+}
+
+@media (min-width: 1200px) {
+    #journey-container {
+        width: 80%;
+        margin: 0 auto;
+    }
 }
