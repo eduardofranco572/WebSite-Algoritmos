@@ -1,31 +1,52 @@
-// Trab Maromo/js/ui/pinguim.js
 $(document).ready(function() {
     // --- LÓGICA DA TRANSIÇÃO ---
     $('#start-journey-btn').on('click', function() {
-        gsap.to(['header', 'main', 'footer'], {
+        const tl = gsap.timeline();
+
+        // 1. Faz o conteúdo inicial desaparecer (header e a seção 'about')
+        tl.to(['header', 'main > .about'], {
             duration: 0.5,
             opacity: 0,
             onComplete: function() {
                 $(this.targets()).addClass('hidden').css('display', 'none');
             }
+        }, 0);
+
+        // 2. Desliga a animação de partículas e remove o elemento
+        tl.to('#particles-js', { 
+            duration: 0.5, 
+            opacity: 0, 
+            onComplete: () => {
+                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
+                    window.pJSDom = [];
+                }
+                $('#particles-js').remove();
+            }
+        }, 0);
+
+        // 3. Ativa a dobra e mostra o canvas de estrelas (sem alterar o fundo do body)
+        tl.call(function() {
+            $('#starfield').show();
+            triggerWarp();
         });
 
-        gsap.fromTo('#journey-container, #next-algo-btn', 
+        // 4. Mostra o novo conteúdo (journey-container) após a animação de dobra
+        tl.fromTo('#journey-container, #next-algo-btn', 
             { display: 'none', opacity: 0 }, 
             {
-                delay: 0.5,
                 duration: 0.8,
                 display: 'flex',
                 opacity: 1,
                 onStart: function() {
                     $('#journey-container, #next-algo-btn').removeClass('hidden');
                 }
-            }
+            }, 
+            "+=1.5" // Espera 1.5s (duração da dobra) para começar
         );
     });
 
-    // --- LÓGICA DA VIAGEM ENTRE ALGORITMOS ---
-    // Estrutura de dados atualizada para suportar múltiplos slides
+    // --- LÓGICA DA VIAGEM ENTRE ALGORITMOS (sem alterações) ---
     const algoritmos = [
         {
             nome: "Busca em Largura (BFS)",
@@ -93,11 +114,9 @@ $(document).ready(function() {
 
         $('.example-title').text(algo.nome);
         
-        // 1. Limpa os slides antigos
         carouselTrack.empty();
 
         let carouselItemsHTML = '';
-        // 2. Cria um loop para gerar todos os slides do algoritmo atual
         algo.explicacao.forEach(slide => {
             carouselItemsHTML += `
                 <div class="carousel-item">
@@ -107,18 +126,13 @@ $(document).ready(function() {
             `;
         });
 
-        // 3. Adiciona todos os novos slides ao carrossel
         carouselTrack.html(carouselItemsHTML);
 
-        console.log("Carregando algoritmo:", algo.nome);
-
-        // Reseta as abas e a visualização
         $('.opitons-menu-demo .menu-option').removeClass('active');
         $('.opitons-menu-demo .menu-option').first().addClass('active');
         $('.body-content').hide();
         $('.body-explanation').show();
 
-        // 4. Reinicia o carrossel com os novos slides
         initCustomCarousel();
 
         if (algo.nome !== "Busca em Largura (BFS)") {
@@ -127,10 +141,22 @@ $(document).ready(function() {
     }
 
     $('#next-algo-btn').on('click', function() {
-        currentIndex = (currentIndex + 1) % algoritmos.length;
-        updateAlgorithmView(currentIndex);
+        triggerWarp();
+
+        gsap.to('.algoritmos', {
+            duration: 0.4,
+            opacity: 0,
+            onComplete: function() {
+                currentIndex = (currentIndex + 1) % algoritmos.length;
+                updateAlgorithmView(currentIndex);
+                gsap.to('.algoritmos', {
+                    delay: 1.5,
+                    duration: 0.4,
+                    opacity: 1
+                });
+            }
+        });
     });
 
-    // Inicia a visualização com o primeiro algoritmo
     updateAlgorithmView(currentIndex);
 });

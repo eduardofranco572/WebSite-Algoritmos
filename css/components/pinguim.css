@@ -39,7 +39,6 @@
     box-shadow: 0 4px 20px rgba(239, 241, 243, 0.3);
     transition: all 0.3s ease;
     margin-top: 2rem;
-    opacity: 0; /* Adicione esta linha para começar invisível */
 }
 
 .btn-viagem:hover {
