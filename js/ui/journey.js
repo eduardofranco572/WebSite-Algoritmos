@@ -16,22 +16,22 @@ $(document).ready(function() {
                 </div>
             `,
             explicacao: [
-                { 
-                    titulo: "Busca em Largura (BFS)", 
+                {
+                    titulo: "Busca em Largura (BFS)",
                     texto: "A Busca em Largura (Breadth-First Search - BFS) é um algoritmo de travessia ou busca em estruturas de dados como árvores e grafos. Ele explora os vizinhos de um nó antes de se aprofundar nos vizinhos dos vizinhos, visitando todos os nós em um mesmo nível antes de prosseguir para o próximo nível.",
                     img: "../img/animacao_acenando.gif"
                 },
-                { 
-                    titulo: "Como Funciona?", 
+                {
+                    titulo: "Como Funciona?",
                     texto: "O algoritmo utiliza uma fila para controlar os nós a serem visitados. Inicia-se em um nó raiz, que é adicionado à fila. Em seguida, o primeiro nó da fila é removido e seus vizinhos ainda não visitados são adicionados ao final da fila. Esse processo se repete até que a fila esteja vazia, garantindo que a exploração seja feita camada por camada.",
                     img: "../img/animacao_apontando.gif"
                 },
                 {
                     titulo: "Visualização",
-                    imgExemple: "../img/bfs.webp",
+                    imgExemple: "../img/algorithms/bfs.webp",
                 },
-                { 
-                    titulo: "Casos de Uso", 
+                {
+                    titulo: "Casos de Uso",
                     texto: "A BFS é ideal para encontrar o caminho mais curto entre dois nós em um grafo não ponderado. É amplamente utilizada em redes de computadores para encontrar todos os computadores alcançáveis, em redes sociais para sugerir amizades (amigos de amigos).",
                     img: "../img/animacao_olhando.gif"
                 }
@@ -51,22 +51,22 @@ $(document).ready(function() {
                 </div>
             `,
             explicacao: [
-                { 
-                    titulo: "Algoritmo de Dijkstra", 
+                {
+                    titulo: "Algoritmo de Dijkstra",
                     texto: "O Algoritmo de Dijkstra é um dos mais famosos algoritmos para encontrar o caminho mais curto entre um nó inicial e todos os outros nós em um grafo com pesos (custos) não negativos nas arestas. Ele é a base para muitos protocolos de roteamento e sistemas de navegação.",
                     img: "../img/animacao_acenando.gif"
                 },
-                { 
-                    titulo: "Como Funciona?", 
+                {
+                    titulo: "Como Funciona?",
                     texto: "Dijkstra utiliza uma abordagem 'gananciosa' (greedy). Ele mantém um registro da menor distância conhecida do ponto de partida até cada nó. A cada passo, ele visita o nó não visitado com a menor distância e atualiza as distâncias para seus vizinhos, caso um caminho mais curto seja encontrado através dele. O processo se repete até que o destino seja alcançado ou todos os nós tenham sido visitados.",
                     img: "../img/animacao_apontando.gif"
                 },
                 {
                     titulo: "Visualização",
-                    imgExemple: "../img/dijkstra.png",
+                    imgExemple: "../img/algorithms/dijkstra.png",
                 },
-                { 
-                    titulo: "Casos de Uso", 
+                {
+                    titulo: "Casos de Uso",
                     texto: "É fundamental em aplicações de roteamento. Sistemas de GPS (como Google Maps e Waze) usam variações de Dijkstra para calcular a rota mais rápida. Em redes de computadores, ele é usado em protocolos como OSPF para determinar o melhor caminho para pacotes de dados. Também é aplicado em logística e qualquer problema que envolva encontrar a rota de menor custo em uma rede.",
                     img: "../img/animacao_olhando.gif"
                 }
@@ -74,23 +74,25 @@ $(document).ready(function() {
         },
         {
             nome: "Problema da Mochila (Knapsack Problem)",
+            exampleInitFunction: 'initKnapsackAnimation',
+            exampleHtml: `<div id="knapsack-animation-container"></div>`,
             explicacao: [
-                { 
-                    titulo: "Problema da Mochila (Knapsack Problem)", 
+                {
+                    titulo: "Problema da Mochila (Knapsack Problem)",
                     texto: "O Problema da Mochila é um problema clássico de otimização combinatória. Dado um conjunto de itens, cada um com um peso e um valor, o objetivo é determinar quais itens colocar em uma mochila de capacidade limitada para que o valor total seja o máximo possível, sem ultrapassar o limite de peso.",
                     img: "../img/animacao_acenando.gif"
                 },
-                { 
-                    titulo: "Tipos e Soluções", 
+                {
+                    titulo: "Tipos e Soluções",
                     texto: "Existem variações, sendo a mais comum a 'Mochila 0/1', onde cada item pode ser escolhido (1) ou não (0). Esta versão é geralmente resolvida com programação dinâmica. Outra variação é a 'Mochila Fracionária', onde frações de itens podem ser levadas, que pode ser resolvida de forma mais simples com um algoritmo guloso (greedy).",
                     imgBolsa: "../img/animacao_bolsa.gif"
                 },
                 {
                     titulo: "Visualização",
-                    imgExemple: "../img/knapsack.jpeg",
+                    imgExemple: "../img/algorithms/knapsack.jpeg",
                 },
-                { 
-                    titulo: "Casos de Uso", 
+                {
+                    titulo: "Casos de Uso",
                     texto: "Este problema serve como modelo para diversas situações de alocação de recursos. É usado na seleção de investimentos financeiros para maximizar o retorno dentro de um orçamento, no carregamento de contêineres e caminhões para otimizar o valor da carga, e na alocação de recursos computacionais.",
                     img: "../img/animacao_olhando.gif"
                 }
@@ -99,22 +101,22 @@ $(document).ready(function() {
         {
             nome: "Cifra de César",
             explicacao: [
-                { 
-                    titulo: "Cifra de César", 
+                {
+                    titulo: "Cifra de César",
                     texto: "A Cifra de César é uma das mais simples e antigas técnicas de criptografia. É uma cifra de substituição na qual cada letra do texto original é trocada por outra, localizada um número fixo de posições adiante no alfabeto. O método foi nomeado em homenagem a Júlio César, que o utilizava para proteger suas comunicações.",
                     img: "../img/animacao_acenando.gif"
                 },
-                { 
-                    titulo: "Como Funciona?", 
+                {
+                    titulo: "Como Funciona?",
                     texto: "O funcionamento baseia-se em um 'deslocamento' (a chave), que é um número inteiro. Por exemplo, com um deslocamento de 3, a letra 'A' se torna 'D', 'B' vira 'E', e assim por diante. Ao chegar ao final do alfabeto, o processo continua do início. Para descriptografar, basta aplicar o mesmo deslocamento no sentido contrário.",
                     img: "../img/animacao_lupa.gif"
                 },
                 {
                     titulo: "Visualização",
-                    imgExemple: "../img/caesar.png",
+                    imgExemple: "../img/algorithms/caesar.png",
                 },
-                { 
-                    titulo: "Casos de Uso", 
+                {
+                    titulo: "Casos de Uso",
                     texto: "O principal caso de uso da Cifra de César hoje é no campo educacional. Por sua simplicidade, ela é uma ferramenta excelente e ainda muito utilizada para introduzir os conceitos básicos de criptografia, como cifragem, decifragem e o uso de chaves. Fora da aprendizagem, não tem uso prático para segurança, mas pode ser encontrada em quebra-cabeças e jogos simples.",
                     img: "../img/aanimacao_apontando.gif"
                 }
@@ -123,11 +125,11 @@ $(document).ready(function() {
         {
             nome: "Matriz DR",
              explicacao: [
-                { 
-                    titulo: "Matriz de Distâncias e Roteamento", 
+                {
+                    titulo: "Matriz de Distâncias e Roteamento",
                     texto: "A Matriz de Distâncias e Roteamento é uma estrutura que armazena as distâncias (ou custos) entre todos os pares de vértices em um grafo. É a base para algoritmos que precisam conhecer todos os caminhos." },
-                 { 
-                    titulo: "Exemplo de Uso", 
+                 {
+                    titulo: "Exemplo de Uso",
                     texto: "O algoritmo de Floyd-Warshall, por exemplo, utiliza essa abordagem para calcular os caminhos mais curtos entre todos os pares de nós de uma só vez, sendo muito útil em planejamento de rotas complexas." }
             ]
         }
@@ -220,7 +222,7 @@ $(document).ready(function() {
             duration: 0.5,
             opacity: 0,
             onComplete: function() {
-                $(this.targets()).addClass('hidden').css('display', 'none'); 
+                $(this.targets()).addClass('hidden').css('display', 'none');
 
                 if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) { window.pJSDom[0].pJS.fn.vendors.destroypJS(); }
                 $('#particles-js').remove();
@@ -271,37 +273,37 @@ $(document).ready(function() {
                     $('<div id="particles-js"></div>').insertBefore('#starfield');
                 }
 
-                window.pJSDom = []; 
-                particlesJS("particles-js", { 
-                    particles: { 
+                window.pJSDom = [];
+                particlesJS("particles-js", {
+                    particles: {
                         number: { value: 80, density: { enable: true, value_area: 800 } },
-                        color: { value: "#ffffff" }, shape: { type: "circle" }, 
-                        opacity: { value: 0.5, random: false }, 
-                        size: { value: 3, random: true }, 
+                        color: { value: "#ffffff" }, shape: { type: "circle" },
+                        opacity: { value: 0.5, random: false },
+                        size: { value: 3, random: true },
                         line_linked: { enable: true, distance: 150, color: "#959595", opacity: 0.4, width: 1 },
-                        move: { 
-                            enable: true, 
-                            speed: 2, 
-                            direction: "none", 
-                            random: false, 
-                            straight: false, 
-                            out_mode: "out", 
-                            bounce: false 
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: "none",
+                            random: false,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false
                         }},
-                        interactivity: { 
-                            detect_on: "canvas", 
-                            events: { 
-                                onhover: { enable: true, mode: "grab" }, 
-                                onclick: { enable: true, mode: "push" }, 
-                                resize: true 
-                            }, 
-                            modes: { 
-                                grab: { distance: 140, line_linked: { opacity: 1 } }, 
+                        interactivity: {
+                            detect_on: "canvas",
+                            events: {
+                                onhover: { enable: true, mode: "grab" },
+                                onclick: { enable: true, mode: "push" },
+                                resize: true
+                            },
+                            modes: {
+                                grab: { distance: 140, line_linked: { opacity: 1 } },
                                 push: { particles_nb: 4 } } }, retina_detect: true });
-                
+
                 $('header, main > .about').removeClass('hidden').removeAttr('style');
                 gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 });
-                
+
                 currentIndex = 0;
                 currentBgIndex = 0;
                 window.currentIndex = 0;
@@ -309,7 +311,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+
     updateAlgorithmView(currentIndex);
 
     function applyButtonAnimation(button) {
