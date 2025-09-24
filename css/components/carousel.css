@@ -35,6 +35,7 @@
     color: #555;
     max-width: 450px;
     text-align: justify;
+    margin-bottom: 0 !important;
 }
 
 .carousel-btn {

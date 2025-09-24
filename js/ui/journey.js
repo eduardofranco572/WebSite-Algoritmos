@@ -6,37 +6,98 @@ $(document).ready(function() {
             explicacao: [
                 { 
                     titulo: "Busca em Largura (BFS)", 
-                    texto: "Esse algoritmo é capaz de obter a menor distância entre dois nós de um grafo não ponderado. O BFS encontra o menor caminho verificando todas as direções à sua volta, é como uma gota d'água que se espalha uniformemente, explorando todos os caminhos possíveis antes de avançar para o próximo nível. Isso garante que a primeira vez que um nó é alcançado, é pelo caminho mais curto possível." },
+                    texto: "A Busca em Largura (Breadth-First Search - BFS) é um algoritmo de travessia ou busca em estruturas de dados como árvores e grafos. Ele explora os vizinhos de um nó antes de se aprofundar nos vizinhos dos vizinhos, visitando todos os nós em um mesmo nível antes de prosseguir para o próximo nível.",
+                    img: "../img/animacao_acenando.gif"
+                },
                 { 
                     titulo: "Como Funciona?", 
-                    texto: "O BFS utiliza uma estrutura de dados de fila (FIFO - First-In, First-Out). Ele começa em um nó raiz, explora todos os seus vizinhos e, em seguida, para cada um desses vizinhos, explora os vizinhos ainda não visitados, e assim por diante, nível por nível no grafo." },
+                    texto: "O algoritmo utiliza uma fila para controlar os nós a serem visitados. Inicia-se em um nó raiz, que é adicionado à fila. Em seguida, o primeiro nó da fila é removido e seus vizinhos ainda não visitados são adicionados ao final da fila. Esse processo se repete até que a fila esteja vazia, garantindo que a exploração seja feita camada por camada.",
+                    img: "../img/animacao_apontando.gif"
+                },
+                {
+                    titulo: "Visualização",
+                    imgExemple: "../img/bfs.webp",
+                },
                 { 
                     titulo: "Casos de Uso", 
-                    texto: "É amplamente utilizado para encontrar o caminho mais curto em grafos sem pesos, em web crawlers para descobrir todas as páginas de um site, em redes sociais para encontrar \"amigos de amigos\" e na solução de quebra-cabeças como o Cubo de Rubik." }
+                    texto: "A BFS é ideal para encontrar o caminho mais curto entre dois nós em um grafo não ponderado. É amplamente utilizada em redes de computadores para encontrar todos os computadores alcançáveis, em redes sociais para sugerir amizades (amigos de amigos).",
+                    img: "../img/animacao_olhando.gif"
+                }
             ]
         },
         {
-            nome: "Dijkstra",
+            nome: "Algoritmo de Dijkstra",
             explicacao: [
                 { 
                     titulo: "Algoritmo de Dijkstra", 
-                    texto: "O algoritmo de Dijkstra encontra o caminho mais curto entre os nós em um grafo ponderado, onde as arestas têm custos. Ele é ideal para problemas como encontrar a rota mais rápida em um mapa GPS." },
+                    texto: "O Algoritmo de Dijkstra é um dos mais famosos algoritmos para encontrar o caminho mais curto entre um nó inicial e todos os outros nós em um grafo com pesos (custos) não negativos nas arestas. Ele é a base para muitos protocolos de roteamento e sistemas de navegação.",
+                    img: "../img/animacao_acenando.gif"
+                },
                 { 
-                    titulo: "Funcionamento", 
-                    texto: "Ele funciona mantendo um conjunto de vértices cujos caminhos mais curtos a partir da origem já são conhecidos e, a cada passo, expande esse conjunto com o vértice mais próximo que ainda não foi visitado." }
+                    titulo: "Como Funciona?", 
+                    texto: "Dijkstra utiliza uma abordagem 'gananciosa' (greedy). Ele mantém um registro da menor distância conhecida do ponto de partida até cada nó. A cada passo, ele visita o nó não visitado com a menor distância e atualiza as distâncias para seus vizinhos, caso um caminho mais curto seja encontrado através dele. O processo se repete até que o destino seja alcançado ou todos os nós tenham sido visitados.",
+                    img: "../img/animacao_apontando.gif"
+                },
+                {
+                    titulo: "Visualização",
+                    imgExemple: "../img/dijkstra.png",
+                },
+                { 
+                    titulo: "Casos de Uso", 
+                    texto: "É fundamental em aplicações de roteamento. Sistemas de GPS (como Google Maps e Waze) usam variações de Dijkstra para calcular a rota mais rápida. Em redes de computadores, ele é usado em protocolos como OSPF para determinar o melhor caminho para pacotes de dados. Também é aplicado em logística e qualquer problema que envolva encontrar a rota de menor custo em uma rede.",
+                    img: "../img/animacao_olhando.gif"
+                }
             ]
         },
         {
-            nome: "Knapsack (Problema da Mochila)",
-             explicacao: [
+            nome: "Problema da Mochila (Knapsack Problem)",
+            explicacao: [
                 { 
-                    titulo: "Problema da Mochila (Knapsack)", 
-                    texto: "Dado um conjunto de itens, cada um com um peso e um valor, o problema da mochila consiste em determinar quais itens colocar em uma mochila com capacidade limitada de peso, de forma a maximizar o valor total." },
-                 { 
-                    titulo: "Aplicação", 
-                    texto: "É um problema clássico de otimização, usado em áreas como alocação de recursos, logística e finanças para tomar as melhores decisões com restrições." }
+                    titulo: "Problema da Mochila (Knapsack Problem)", 
+                    texto: "O Problema da Mochila é um problema clássico de otimização combinatória. Dado um conjunto de itens, cada um com um peso e um valor, o objetivo é determinar quais itens colocar em uma mochila de capacidade limitada para que o valor total seja o máximo possível, sem ultrapassar o limite de peso.",
+                    img: "../img/animacao_acenando.gif"
+                },
+                { 
+                    titulo: "Tipos e Soluções", 
+                    texto: "Existem variações, sendo a mais comum a 'Mochila 0/1', onde cada item pode ser escolhido (1) ou não (0). Esta versão é geralmente resolvida com programação dinâmica. Outra variação é a 'Mochila Fracionária', onde frações de itens podem ser levadas, que pode ser resolvida de forma mais simples com um algoritmo guloso (greedy).",
+                    imgBolsa: "../img/animacao_bolsa.gif"
+                },
+                {
+                    titulo: "Visualização",
+                    imgExemple: "../img/knapsack.jpeg",
+                },
+                { 
+                    titulo: "Casos de Uso", 
+                    texto: "Este problema serve como modelo para diversas situações de alocação de recursos. É usado na seleção de investimentos financeiros para maximizar o retorno dentro de um orçamento, no carregamento de contêineres e caminhões para otimizar o valor da carga, e na alocação de recursos computacionais.",
+                    img: "../img/animacao_olhando.gif"
+                }
             ]
         },
+        {
+            nome: "Cifra de César",
+            explicacao: [
+                { 
+                    titulo: "Cifra de César", 
+                    texto: "A Cifra de César é uma das mais simples e antigas técnicas de criptografia. É uma cifra de substituição na qual cada letra do texto original é trocada por outra, localizada um número fixo de posições adiante no alfabeto. O método foi nomeado em homenagem a Júlio César, que o utilizava para proteger suas comunicações.",
+                    img: "../img/animacao_acenando.gif"
+                },
+                { 
+                    titulo: "Como Funciona?", 
+                    texto: "O funcionamento baseia-se em um 'deslocamento' (a chave), que é um número inteiro. Por exemplo, com um deslocamento de 3, a letra 'A' se torna 'D', 'B' vira 'E', e assim por diante. Ao chegar ao final do alfabeto, o processo continua do início. Para descriptografar, basta aplicar o mesmo deslocamento no sentido contrário.",
+                    img: "../img/animacao_lupa.gif"
+                },
+                {
+                    titulo: "Visualização",
+                    imgExemple: "../img/caesar.png",
+                },
+                { 
+                    titulo: "Casos de Uso", 
+                    texto: "O principal caso de uso da Cifra de César hoje é no campo educacional. Por sua simplicidade, ela é uma ferramenta excelente e ainda muito utilizada para introduzir os conceitos básicos de criptografia, como cifragem, decifragem e o uso de chaves. Fora da aprendizagem, não tem uso prático para segurança, mas pode ser encontrada em quebra-cabeças e jogos simples.",
+                    img: "../img/aanimacao_apontando.gif"
+                }
+            ]
+        },
+
         {
             nome: "Matriz DR",
              explicacao: [
@@ -68,18 +129,59 @@ $(document).ready(function() {
     function updateAlgorithmView(index) {
         const algo = algoritmos[index];
         const carouselTrack = $('.carousel-track');
+
         $('.example-title').text(algo.nome);
+
         carouselTrack.empty();
         let carouselItemsHTML = '';
+
         algo.explicacao.forEach(slide => {
-            carouselItemsHTML += `
-                <div class="carousel-item">
-                    <h3>${slide.titulo}</h3>
-                    <p>${slide.texto}</p>
-                </div>
-            `;
+            // Caso 1: Slide de visualização com a imagem principal do exemplo
+            if (slide.imgExemple) {
+                carouselItemsHTML += `
+                    <div class="carousel-item">
+                        <h3>${slide.titulo}</h3>
+                        <div class="imgExemple">
+                            <img src="${slide.imgExemple}" alt="Visualização do algoritmo">
+                        </div>
+                    </div>
+                `;
+            // Caso 2: Slide específico da "Mochila" com texto e imagem da bolsa
+            } else if (slide.imgBolsa && slide.texto) {
+                carouselItemsHTML += `
+                    <div class="carousel-item with-image">
+                        <h3>${slide.titulo}</h3>
+                        <p>${slide.texto}</p>
+                        <div class="image-container">
+                            <img class="imgBolsa" src="${slide.imgBolsa}" alt="Animação de uma bolsa">
+                        </div>
+                    </div>
+                `;
+            // Caso 3: Slide padrão com texto e imagem do mascote
+            } else if (slide.img && slide.texto) {
+                carouselItemsHTML += `
+                    <div class="carousel-item with-image">
+                        <h3>${slide.titulo}</h3>
+                        <p>${slide.texto}</p>
+                        <div class="image-container">
+                            <img class="img-mascot" src="${slide.img}" alt="Mascote Pinguim">
+                        </div>
+                    </div>
+                `;
+            // Caso 4: Slide que contém apenas texto
+            } else if (slide.texto) {
+                carouselItemsHTML += `
+                    <div class="carousel-item">
+                        <h3>${slide.titulo}</h3>
+                        <p>${slide.texto}</p>
+                    </div>
+                `;
+            }
         });
+
+
         carouselTrack.html(carouselItemsHTML);
+
         $('.opitons-menu-demo .menu-option').removeClass('active').first().addClass('active');
         $('.body-content').hide().first().show();
         initCustomCarousel();
