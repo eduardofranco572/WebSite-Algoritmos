@@ -1,8 +1,20 @@
 $(document).ready(function() {
-    // Logica da Viagem
+    // Array de objetos, onde cada objeto representa um algoritmo
     const algoritmos = [
         {
             nome: "Busca em Largura (BFS)",
+            // Nome da função JS que inicia a animação deste algoritmo
+            exampleInitFunction: 'initBFSGraph',
+            // HTML que será injetado na aba "Exemplo" para este algoritmo
+            exampleHtml: `
+                <h2 class="example-title">Busca em Largura (BFS)</h2>
+                <div id="cy-graph" class="grafo-bfs"></div>
+                <div class="animation-controls">
+                    <button id="animate-btn" class="btn-animate">
+                        <span class="material-symbols-outlined">play_arrow</span> Animar
+                    </button>
+                </div>
+            `,
             explicacao: [
                 { 
                     titulo: "Busca em Largura (BFS)", 
@@ -27,6 +39,17 @@ $(document).ready(function() {
         },
         {
             nome: "Algoritmo de Dijkstra",
+            exampleInitFunction: 'initDijkstraGraph',
+            exampleHtml: `
+                <h2 class="example-title">Algoritmo de Dijkstra</h2>
+                <div id="cy-graph" class="grafo-bfs"></div>
+                <div class="animation-controls">
+                    <button id="animate-btn" class="btn-animate">
+                        <span class="material-symbols-outlined">play_arrow</span> Animar
+                    </button>
+                    <p id="animation-result" style="display: none; margin-top: 10px; font-weight: bold; color: #f0f0f0;"></p>
+                </div>
+            `,
             explicacao: [
                 { 
                     titulo: "Algoritmo de Dijkstra", 
@@ -97,7 +120,6 @@ $(document).ready(function() {
                 }
             ]
         },
-
         {
             nome: "Matriz DR",
              explicacao: [
@@ -129,14 +151,11 @@ $(document).ready(function() {
     function updateAlgorithmView(index) {
         const algo = algoritmos[index];
         const carouselTrack = $('.carousel-track');
-
-        $('.example-title').text(algo.nome);
+        const exampleContainer = $('#example-content-container');
 
         carouselTrack.empty();
         let carouselItemsHTML = '';
-
         algo.explicacao.forEach(slide => {
-            // Caso 1: Slide de visualização com a imagem principal do exemplo
             if (slide.imgExemple) {
                 carouselItemsHTML += `
                     <div class="carousel-item">
@@ -146,7 +165,6 @@ $(document).ready(function() {
                         </div>
                     </div>
                 `;
-            // Caso 2: Slide específico da "Mochila" com texto e imagem da bolsa
             } else if (slide.imgBolsa && slide.texto) {
                 carouselItemsHTML += `
                     <div class="carousel-item with-image">
@@ -157,7 +175,6 @@ $(document).ready(function() {
                         </div>
                     </div>
                 `;
-            // Caso 3: Slide padrão com texto e imagem do mascote
             } else if (slide.img && slide.texto) {
                 carouselItemsHTML += `
                     <div class="carousel-item with-image">
@@ -168,7 +185,6 @@ $(document).ready(function() {
                         </div>
                     </div>
                 `;
-            // Caso 4: Slide que contém apenas texto
             } else if (slide.texto) {
                 carouselItemsHTML += `
                     <div class="carousel-item">
@@ -178,9 +194,9 @@ $(document).ready(function() {
                 `;
             }
         });
-
-
         carouselTrack.html(carouselItemsHTML);
+
+        exampleContainer.html(algo.exampleHtml || '<p style="color: #fff;">Exemplo não disponível.</p>');
 
         $('.opitons-menu-demo .menu-option').removeClass('active').first().addClass('active');
         $('.body-content').hide().first().show();
@@ -229,6 +245,7 @@ $(document).ready(function() {
                     if (currentIndex >= algoritmos.length) {
                         currentIndex = 0;
                     }
+                    window.currentIndex = currentIndex;
                     updateAlgorithmView(currentIndex);
 
                     if (currentIndex === algoritmos.length - 1) {
@@ -287,6 +304,7 @@ $(document).ready(function() {
                 
                 currentIndex = 0;
                 currentBgIndex = 0;
+                window.currentIndex = 0;
                 updateAlgorithmView(currentIndex);
             }
         });
@@ -305,4 +323,7 @@ $(document).ready(function() {
 
     applyButtonAnimation(nextAlgoBtn);
     applyButtonAnimation(backToStartBtn);
+
+    window.algoritmos = algoritmos;
+    window.currentIndex = currentIndex;
 });

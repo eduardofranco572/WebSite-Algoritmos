@@ -3,7 +3,7 @@ let bfsAnimationTimeline;
 
 function initBFSGraph() {
     if (cyBFS) { cyBFS.destroy(); }
-    if (bfsAnimationTimeline) { bfsAnimationTimeline.kill(); }
+    if (bfsAnimationTimeline) { bfsAnimationTimeline.kill(); } 
 
     const bfsElements = [
         { data: { id: 'A' }, position: { x: 200, y: 50 } }, { data: { id: 'B' }, position: { x: 100, y: 150 } },
@@ -17,49 +17,14 @@ function initBFSGraph() {
     ];
 
     cyBFS = cytoscape({
-        container: document.getElementById('cy'),
+        container: document.getElementById('cy-graph'),
         elements: bfsElements.concat(bfsEdges),
+
         style: [
-            { selector: 'node', 
-                style: { 
-                    'background-color': '#555',
-                    'label': 'data(id)',
-                    'color': '#ccc',
-                    'font-size': '12px', 
-                    'text-valign': 'center', 
-                    'text-halign': 'center', 
-                    'width': '30px', 
-                    'height': '30px', 
-                    'border-width': 2, 
-                    'border-color': '#888', 
-                    'transition-property': 'background-color, border-color, color', 
-                    'transition-duration': '0.5s' 
-                } 
-            },
-            { selector: 'edge', 
-                style: { 
-                    'width': 3, 
-                    'line-color': '#555', 
-                    'target-arrow-color': '#555', 
-                    'target-arrow-shape': 'triangle', 
-                    'curve-style': 'bezier', 
-                    'transition-property': 'line-color, target-arrow-color', 
-                    'transition-duration': '0.5s' 
-                } 
-            },
-            { selector: '.visited-node', 
-                style: { 
-                    'background-color': '#9307e4', 
-                    'border-color': '#ffffff', 
-                    'color': '#FFFFFF' 
-                } 
-            },
-            { selector: '.visited-edge', 
-                style: { 
-                    'line-color': '#9307e4', 
-                    'target-arrow-color': '#9307e4' 
-                } 
-            }
+            { selector: 'node', style: { 'background-color': '#555', 'label': 'data(id)', 'color': '#ccc', 'font-size': '12px', 'text-valign': 'center', 'text-halign': 'center', 'width': '30px', 'height': '30px', 'border-width': 2, 'border-color': '#888', 'transition-property': 'background-color, border-color, color', 'transition-duration': '0.5s' } },
+            { selector: 'edge', style: { 'width': 3, 'line-color': '#555', 'target-arrow-color': '#555', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'transition-property': 'line-color, target-arrow-color', 'transition-duration': '0.5s' } },
+            { selector: '.visited-node', style: { 'background-color': '#9307e4', 'border-color': '#ffffff', 'color': '#FFFFFF' } },
+            { selector: '.visited-edge', style: { 'line-color': '#9307e4', 'target-arrow-color': '#9307e4' } }
         ],
         layout: { name: 'preset' },
         zoomingEnabled: false, userPanningEnabled: false, autoungrabify: true
@@ -76,7 +41,7 @@ function initBFSGraph() {
 
 
 function setupAnimationButton() {
-    const btn = $('#bfs-animate-btn');
+    const btn = $('#animate-btn');
     const btnIcon = btn.find('.material-symbols-outlined');
     const btnTextNode = btn.contents().filter(function() { return this.nodeType === 3; })[0];
     
@@ -128,5 +93,3 @@ function setupAnimationButton() {
         }
     });
 }
-
-
