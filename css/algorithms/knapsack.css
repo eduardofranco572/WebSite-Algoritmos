@@ -4,72 +4,154 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: #333;
+    justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
+    background-color: #fdfdfd;
+    border-radius: 1rem;
+    color: #333;
 }
 
-.knapsack-wrapper {
-    display: flex;
-    justify-content: space-around;
+.knapsack-title h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.knapsack-main-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    align-items: center;
+    justify-items: center;
     width: 100%;
-    margin: 20px 0;
+    height: 100%;
     gap: 20px;
 }
 
-.items-list, .knapsack-area {
-    width: 45%;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    height: 300px;
-    overflow-y: auto;
+.knapsack-available-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    justify-items: center;
 }
 
-.knapsack-area {
-    background-color: #f7f7f7;
+.knapsack-center-area {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 100%;
 }
 
-.items-list h3, .knapsack-area h3 {
+.knapsack-backpack-img {
+    width: 150px;
+    height: auto;
+    z-index: 1;
+}
+
+.knapsack-item {
+    width: 130px;
+    height: auto;
+    padding: 15px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     text-align: center;
-    margin-bottom: 15px;
+    position: relative; 
+}
+
+.knapsack-item img {
+    max-width: 45px;
+    margin-bottom: 10px;
+}
+
+.knapsack-item .item-info p {
+    margin: 2px 0;
+    font-size: 0.85em;
+    line-height: 1.3;
     color: #555;
 }
-
-.item {
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    background-color: #fff;
-    cursor: grab;
-    transition: background-color 0.3s, transform 0.3s;
+.knapsack-item .item-info p strong {
+    color: #333;
 }
 
-.item:hover {
+.knapsack-status-panel {
+    width: 100%;
+    height: 100%;
     background-color: #f0f0f0;
-    transform: scale(1.05);
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-.item img {
-    max-width: 40px;
-    margin-bottom: 8px;
-}
-
-.item p {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-.knapsack-result {
-    margin-top: 15px;
-    font-size: 1.1em;
+.knapsack-status-panel h3 {
     text-align: center;
-    color: #444;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    color: #333;
+    font-size: 1.2rem;
 }
 
-.btn-animate {
-    margin-top: 20px;
+.knapsack-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.knapsack-table th, .knapsack-table td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.knapsack-table th {
+    font-size: 0.9em;
+    color: #555;
+}
+.knapsack-table td {
+    font-size: 0.95em;
+}
+
+.knapsack-totals {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    color: #333;
+}
+
+.knapsack-totals p {
+    margin: 5px 0;
+}
+
+.knapsack-controls {
+    margin-top: 1rem;
+}
+
+#knapsack-animation-container .btn-animate {
+    color: #333;
+    border-color: #555;
+}
+
+#knapsack-animation-container .btn-animate:hover {
+    background-color: #9307e4;
+    border-color: #9307e4;
+    color: #fff;
 }

@@ -11,7 +11,7 @@ $(document).ready(function() {
                 <div id="cy-graph" class="grafo-bfs"></div>
                 <div class="animation-controls">
                     <button id="animate-btn" class="btn-animate">
-                        <span class="material-symbols-outlined">play_arrow</span> Animar
+                        <span class="material-symbols-outlined">play_arrow</span>
                     </button>
                 </div>
             `,
@@ -100,6 +100,8 @@ $(document).ready(function() {
         },
         {
             nome: "Cifra de César",
+            exampleInitFunction: 'initCaesarCipherAnimation',
+            exampleHtml: `<div id="caesar-animation-container"></div>`,
             explicacao: [
                 {
                     titulo: "Cifra de César",
@@ -124,13 +126,24 @@ $(document).ready(function() {
         },
         {
             nome: "Matriz DR",
-             explicacao: [
-                {
-                    titulo: "Matriz de Distâncias e Roteamento",
-                    texto: "A Matriz de Distâncias e Roteamento é uma estrutura que armazena as distâncias (ou custos) entre todos os pares de vértices em um grafo. É a base para algoritmos que precisam conhecer todos os caminhos." },
-                 {
-                    titulo: "Exemplo de Uso",
-                    texto: "O algoritmo de Floyd-Warshall, por exemplo, utiliza essa abordagem para calcular os caminhos mais curtos entre todos os pares de nós de uma só vez, sendo muito útil em planejamento de rotas complexas." }
+            exampleInitFunction: 'initMatrixDRAnimation',
+            exampleHtml: `<div id="example-content-container"></div>`, 
+            explicacao: [
+                { 
+                    "titulo": "Matriz DR: Navegação Direcional", 
+                    "texto": "A 'Matriz DR' é uma técnica utilizada para percorrer células vizinhas em uma matriz ou grade. O nome se refere ao uso de vetores de direção, geralmente chamados de 'dr' (delta linha) e 'dc' (delta coluna), que armazenam os deslocamentos necessários para alcançar as células adjacentes a partir de um ponto de origem.",
+                    "img": "../img/animacao_acenando.gif"
+                },
+                { 
+                    "titulo": "Como Funciona?", 
+                    "texto": "Para encontrar os vizinhos, um laço 'for' percorre os vetores de direção. Em cada iteração 'i', as coordenadas de um novo vizinho são calculadas somando a posição atual com os valores de dr[i] e dc[i]. Em seguida, um 'if' realiza validações essenciais para o algoritmo.",
+                    "img": "../img/aanimacao_apontando.gif"
+                },
+                { 
+                    "titulo": "Casos de Uso", 
+                    "texto": "Esta abordagem é a base para a implementação de diversos algoritmos clássicos em grades, como a Busca em Largura (BFS) para encontrar o caminho mais curto, a Busca em Profundidade (DFS) para explorar labirintos, e em soluções de problemas como 'flood fill' (pintura) e jogos de tabuleiro.",
+                    "img": "../img/animacao_olhando.gif"
+                }
             ]
         }
     ];
