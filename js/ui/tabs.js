@@ -18,21 +18,23 @@ $(document).ready(function() {
             if (activeTab.hasClass('body-explanation')) {
                 // Se for a de explicação, reinicia o carrossel
                 initCustomCarousel();
-            } 
+            }
             else if (activeTab.hasClass('body-example')) {
                 // Se for a de exemplo, busca a função de inicialização no array global
                 // que foi definido no journey.js
                 const initFunctionName = window.algoritmos[window.currentIndex].exampleInitFunction;
-                
+
                 // Verifica se a função existe no escopo global e a executa
                 if (typeof window[initFunctionName] === 'function') {
                     window[initFunctionName]();
                 } else {
                     console.error("Função de inicialização do exemplo não encontrada:", initFunctionName);
                 }
-            } 
+            }
             else if (activeTab.hasClass('body-coding')) {
-                // Se for a de código, aciona o realce de sintaxe
+                // Se for a de código, atualiza o conteúdo e aciona o realce de sintaxe
+                const code = window.algoritmos[window.currentIndex].code;
+                $('.body-coding pre code').text(code);
                 Prism.highlightAll();
             }
         });
