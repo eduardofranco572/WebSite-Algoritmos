@@ -3,10 +3,10 @@ const algoritmos = [
         nome: "Busca em Largura (BFS)",
         exampleInitFunction: 'initBFSGraph',
         exampleHtml: `
-            <h2 class="example-title">Busca em Largura (BFS)</h2>
+            <h2 class="example-title fs-5 text-center mb-3">Busca em Largura (BFS)</h2>
             <div id="cy-graph" class="grafo-bfs"></div>
-            <div class="animation-controls">
-                <button id="animate-btn" class="btn-animate">
+            <div class="animation-controls pt-3 d-flex flex-direction-column align-items-center justify-content-center">
+                <button id="animate-btn" class="btn-animate d-flex align-items-center justify-content-center fs-6 rounded-3 user-select-none">
                     <span class="material-symbols-outlined">play_arrow</span>
                 </button>
             </div>
@@ -124,11 +124,11 @@ public class Main {
         nome: "Algoritmo de Dijkstra",
         exampleInitFunction: 'initDijkstraGraph',
         exampleHtml: `
-            <h2 class="example-title">Algoritmo de Dijkstra</h2>
+            <h2 class="example-title fs-5 text-center mb-3">Algoritmo de Dijkstra</h2>
             <div id="cy-graph" class="grafo-bfs"></div>
-            <div class="animation-controls">
-                <button id="animate-btn" class="btn-animate">
-                    <span class="material-symbols-outlined">play_arrow</span> Animar
+            <div class="animation-controls pt-3 d-flex flex-direction-column align-items-center justify-content-center">
+                <button id="animate-btn" class="btn-animate d-flex align-items-center justify-content-center fs-6 rounded-3 user-select-none">
+                    <span class="material-symbols-outlined">play_arrow</span> 
                 </button>
                 <p id="animation-result" style="display: none; margin-top: 10px; font-weight: bold; color: #f0f0f0;"></p>
             </div>
@@ -384,6 +384,8 @@ public class CaesarCipher {
         nome: "Matriz DR",
         exampleInitFunction: 'initMatrixDRAnimation',
         exampleHtml: `<div id="example-content-container"></div>`,
+
+
         explicacao: [
             {
                 "titulo": "Matriz DR: Navegação Direcional",

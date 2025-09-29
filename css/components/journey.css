@@ -5,11 +5,7 @@
 }
 
 #journey-container {
-    width: 100%;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #next-algo-btn, #back-to-start-btn {
@@ -19,23 +15,16 @@
     z-index: 1000;
 }
 
-
 .btn-viagem {
     padding: 12px 24px;
     background-color: var(--white-color);
     color: var(--card-color);
     border: none;
     border-radius: 50px;
-    cursor: pointer;
     font-family: "Karla", sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
     gap: 8px;
     box-shadow: 0 4px 20px rgba(239, 241, 243, 0.3);
-    transition: all 0.3s ease;
-    margin-top: 2rem;
+    transition: all 0.3s ease; 
 }
 
 .btn-viagem:hover {

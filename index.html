@@ -64,19 +64,19 @@
         </section>
     </main>
 
-    <div id="journey-container" class="hidden">
+    <div id="journey-container" class="hidden w-100 d-flex justify-content-center align-items-center">
         <section class="algoritmos w-100 d-flex flex-column align-items-center">
             <div class="menu-demo-top">
-                <div class="opitons-menu-demo d-flex justify-content-center align-items-center">
-                    <span class="menu-option active">
+                <div class="opitons-menu-demo user-select-none d-flex justify-content-center align-items-center">
+                    <span class="menu-option d-flex align-items-center fw-medium small active">
                         <span class="material-symbols-outlined">tooltip</span>
                         Explicação
                     </span>
-                    <span class="menu-option">
+                    <span class="menu-option d-flex align-items-center fw-medium small">
                         <span class="material-symbols-outlined">psychology</span>
                         Exemplo
                     </span>
-                    <span class="menu-option">
+                    <span class="menu-option d-flex align-items-center fw-medium small">
                         <span class="material-symbols-outlined">code_blocks</span>
                         Código
                     </span>
@@ -84,11 +84,24 @@
             </div>
             <section class="demo-algo row justify-content-center w-100 gx-4">
                 <div class="container-demo col-10 d-flex flex-column justify-content-center align-items-center overflow-hidden">
-                    <div class="body-content body-explanation" style="display: flex;">
-                        <div class="carousel-container">
-                           <div class="carousel-track"> </div>
-                            <button class="carousel-btn prev material-symbols-outlined"></button>
-                            <button class="carousel-btn next material-symbols-outlined"></button>
+                    <div class="body-content">
+                        <div class="body-explanation d-flex flex-column align-items-center justify-content-center p-3 overflow-hidden w-100 h-100">
+                            <div class="carousel-container w-100 h-100">
+                            <div class="carousel-track h-100 d-flex"> </div>
+                                <button class="carousel-btn prev material-symbols-outlined 
+                                            position-absolute border-0 
+                                            user-select-none rounded-circle d-flex 
+                                            align-items-center justify-content-center">
+                                    arrow_back_ios
+                                </button>
+
+                                <button class="carousel-btn next material-symbols-outlined 
+                                            position-absolute border-0 
+                                            user-select-none rounded-circle d-flex 
+                                            align-items-center justify-content-center">
+                                    arrow_forward_ios
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="body-content body-example">
@@ -103,7 +116,7 @@
         </section>
     </div>
 
-    <button id="next-algo-btn" class="btn-viagem hidden">
+    <button id="next-algo-btn" class="btn-viagem fw-bold fs-6 d-inline-flex align-items-center hidden">
         <span class="btn-viagem-text">
             Próximo Algoritmo
             <span class="material-symbols-outlined">arrow_forward</span>

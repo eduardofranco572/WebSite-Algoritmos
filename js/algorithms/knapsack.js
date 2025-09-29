@@ -14,7 +14,6 @@ function initKnapsackAnimation() {
     ];
     const capacity = 8;
 
-    // --- HTML ESTRUTURAL MODIFICADO ---
     let html = `
         <div class="knapsack-title">
             <h2>Problema da Mochila (Capacidade: ${capacity})</h2>
@@ -50,8 +49,6 @@ function initKnapsackAnimation() {
     `;
     container.html(html);
 
-    // --- LÓGICA DE POSICIONAMENTO REMOVIDA ---
-    // A lógica de posicionar em círculo foi removida e será feita via CSS Grid
     const availableItemsContainer = container.find('.knapsack-available-items');
     items.forEach(item => {
         const itemHtml = `
@@ -120,7 +117,6 @@ function runKnapsackAnimation(items, capacity) {
         const itemElement = $(`#item-${item.id}`);
         const backpackElement = $('.knapsack-backpack-img');
         
-        // --- ANIMAÇÃO ATUALIZADA ---
         // Calcula a posição da mochila em relação ao contêiner
         const targetX = backpackElement.offset().left - itemElement.offset().left + (backpackElement.width() / 2) - (itemElement.width() / 2);
         const targetY = backpackElement.offset().top - itemElement.offset().top + (backpackElement.height() / 2) - (itemElement.height() / 2);

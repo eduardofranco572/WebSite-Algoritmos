@@ -20,53 +20,68 @@ $(document).ready(function() {
         const carouselTrack = $('.carousel-track');
         const exampleContainer = $('#example-content-container');
 
+        // Limpa o conteúdo anterior
         carouselTrack.empty();
         let carouselItemsHTML = '';
+
+        const titleClass = "fs-4 fw-bold";
+        const textClass = "fs-6 text-justify";
+
+        // Loop para criar cada slide
         algo.explicacao.forEach(slide => {
+            const itemClasses = "carousel-item w-100 flex-shrink-0 d-flex flex-column align-items-center justify-content-center text-center";
+
             if (slide.imgExemple) {
                 carouselItemsHTML += `
-                    <div class="carousel-item">
-                        <h3>${slide.titulo}</h3>
-                        <div class="imgExemple">
-                            <img src="${slide.imgExemple}" alt="Visualização do algoritmo">
+                    <div class="${itemClasses}">
+                        <h3 class="${titleClass}">${slide.titulo}</h3>
+                        <div class="d-flex justify-content-center align-items-center w-100">        
+                        <img class="w-100 h-100" src="${slide.imgExemple}" alt="Visualização do algoritmo">
                         </div>
                     </div>
                 `;
+
             } else if (slide.imgBolsa && slide.texto) {
                 carouselItemsHTML += `
-                    <div class="carousel-item with-image">
-                        <h3>${slide.titulo}</h3>
-                        <p>${slide.texto}</p>
-                        <div class="image-container">
-                            <img class="imgBolsa" src="${slide.imgBolsa}" alt="Animação de uma bolsa">
+                    <div class="${itemClasses} with-image user-select-none">
+                        <h3 class="${titleClass}">${slide.titulo}</h3>
+                        <p class="${textClass}">${slide.texto}</p>
+                        <div class="image-container d-flex justify-content-end align-items-end"> 
+                            <img class="imgBolsa w-100 h-100" src="${slide.imgBolsa}" alt="Animação de uma bolsa">
                         </div>
                     </div>
                 `;
+                
             } else if (slide.img && slide.texto) {
                 carouselItemsHTML += `
-                    <div class="carousel-item with-image">
-                        <h3>${slide.titulo}</h3>
-                        <p>${slide.texto}</p>
-                        <div class="image-container">
-                            <img class="img-mascot" src="${slide.img}" alt="Mascote Pinguim">
+                    <div class="${itemClasses} with-image">
+                        <h3 class="${titleClass}">${slide.titulo}</h3>
+                        <p class="${textClass}">${slide.texto}</p>
+                        <div class="image-container d-flex justify-content-end align-items-end">
+                            <img class="img-mascot w-100 h-100" src="${slide.img}" alt="Mascote Pinguim">
                         </div>
                     </div>
                 `;
+
             } else if (slide.texto) {
                 carouselItemsHTML += `
-                    <div class="carousel-item">
-                        <h3>${slide.titulo}</h3>
-                        <p>${slide.texto}</p>
+                    <div class="${itemClasses}">
+                        <h3 class="${titleClass}">${slide.titulo}</h3>
+                        <p class="${textClass}">${slide.texto}</p>
                     </div>
                 `;
             }
         });
+
         carouselTrack.html(carouselItemsHTML);
 
+        // Atualiza a aba de exemplo
         exampleContainer.html(algo.exampleHtml || '<p style="color: #fff;">Exemplo não disponível.</p>');
 
+        // Garante que a primeira aba esteja ativa
         $('.opitons-menu-demo .menu-option').removeClass('active').first().addClass('active');
         $('.body-content').hide().first().show();
+
         initCustomCarousel();
     }
 
@@ -74,11 +89,13 @@ $(document).ready(function() {
         const tl = gsap.timeline();
         tl.call(triggerWarp);
         tl.to('#flash-overlay', { opacity: 1, duration: 1, ease: "power2.in" }, "+=0.5");
+
         tl.call(() => {
             currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
             $('body').css('background-image', `url('${backgroundImages[currentBgIndex]}')`);
             if (onCompleteCallback) onCompleteCallback();
         });
+
         tl.to('#flash-overlay', { opacity: 0, duration: 1.5 }, "+=0.2");
     }
 
@@ -89,9 +106,13 @@ $(document).ready(function() {
             onComplete: function() {
                 $(this.targets()).addClass('hidden').css('display', 'none');
 
-                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) { window.pJSDom[0].pJS.fn.vendors.destroypJS(); }
+                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) { 
+                    window.pJSDom[0].pJS.fn.vendors.destroypJS(); 
+                }
+
                 $('#particles-js').remove();
                 $('#starfield').show();
+
                 playWarpTransition(() => {
                     $('#journey-container').removeClass('hidden').css({ 'display': 'flex' });
                     nextAlgoBtn.removeClass('hidden');
@@ -112,6 +133,7 @@ $(document).ready(function() {
                     if (currentIndex >= algoritmos.length) {
                         currentIndex = 0;
                     }
+                    
                     window.currentIndex = currentIndex;
                     updateAlgorithmView(currentIndex);
 
@@ -167,6 +189,7 @@ $(document).ready(function() {
                                 push: { particles_nb: 4 } } }, retina_detect: true });
 
                 $('header, main > .about').removeClass('hidden').removeAttr('style');
+                
                 gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 });
 
                 currentIndex = 0;
@@ -182,9 +205,38 @@ $(document).ready(function() {
     function applyButtonAnimation(button) {
         if (button.length) {
             const btnFill = button.find(".btn-viagem-fill");
-            button.on("mouseenter", function(e) { const rect = this.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; gsap.set(btnFill, { top: y, left: x }); gsap.to(btnFill, { scale: 4, duration: 0.4, ease: "power2.out" }); });
-            button.on("mousemove", function(e) { const rect = this.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; gsap.to(btnFill, { top: y, left: x, duration: 0.1 }); });
-            button.on("mouseleave", function() { gsap.to(btnFill, { scale: 0, duration: 0.3, ease: "power2.in" }); });
+
+            button.on("mouseenter", function(e) { 
+                const rect = this.getBoundingClientRect(); 
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top; 
+                gsap.set(btnFill, { top: y, left: x }); 
+                gsap.to(btnFill, { 
+                    scale: 4, 
+                    duration: 0.4, 
+                    ease: "power2.out" 
+                }); 
+            });
+
+            button.on("mousemove", function(e) { 
+                const rect = this.getBoundingClientRect(); 
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top; 
+                
+                gsap.to(btnFill, { 
+                    top: y, 
+                    left: x, 
+                    duration: 0.1 
+                }); 
+            });
+
+            button.on("mouseleave", function() { 
+                gsap.to(btnFill, { 
+                    scale: 0, 
+                    duration: 0.3, 
+                    ease: "power2.in" 
+                }); 
+            });
         }
     }
 
