@@ -9,28 +9,27 @@
 }
 
 .carousel-item {
-    flex: 0 0 100%; 
+    flex: 0 0 100%;
     box-sizing: border-box;
-    padding: 0 50px;
     margin-right: auto !important;
 }
 
 .carousel-item h3 {
     margin-bottom: 1rem;
-    color: #0e0416;
+    color: var(--background-dark);
 }
 
 .carousel-item p {
-    color: #555;
-
+    color: var(--text-dark);
     margin-bottom: 0 !important;
+    max-width: 80%;
 }
 
 .carousel-btn {
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(14, 4, 22, 0.3);
-    color: white;
+    color: var(--text-light);
     z-index: 10;
     width: 40px;
     height: 40px;
@@ -38,7 +37,7 @@
 }
 
 .carousel-btn:hover {
-    background-color: #1a1a1d;
+    background-color: var(--background-code);
 }
 
 .carousel-btn.prev {

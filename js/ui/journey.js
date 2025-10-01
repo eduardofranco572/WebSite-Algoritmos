@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     const nextAlgoBtn = $("#next-algo-btn");
     const backToStartBtn = $("#back-to-start-btn");
+    const startJourneyBtn = $("#start-journey-btn"); 
 
     function updateAlgorithmView(index) {
         const algo = algoritmos[index];
@@ -24,7 +25,7 @@ $(document).ready(function() {
         carouselTrack.empty();
         let carouselItemsHTML = '';
 
-        const titleClass = "fs-4 fw-bold";
+        const titleClass = "fs-2 fw-bold";
         const textClass = "fs-6 text-justify";
 
         // Loop para criar cada slide
@@ -36,7 +37,7 @@ $(document).ready(function() {
                     <div class="${itemClasses}">
                         <h3 class="${titleClass}">${slide.titulo}</h3>
                         <div class="d-flex justify-content-center align-items-center w-100">        
-                        <img class="w-100 h-100" src="${slide.imgExemple}" alt="Visualização do algoritmo">
+                        <img class="w-100 h-100" style="max-width: 30rem;" src="${slide.imgExemple}" alt="Visualização do algoritmo">
                         </div>
                     </div>
                 `;
@@ -125,15 +126,27 @@ $(document).ready(function() {
     });
 
     $('#next-algo-btn').on('click', function() {
+        const button = $(this);
+
+        // 1. Anima o botão para desaparecer suavemente
+        gsap.to(button, {
+            autoAlpha: 0,
+            y: 10,
+            duration: 0.3
+        });
+
         gsap.to('.algoritmos', {
-            duration: 0.4, autoAlpha: 0, scale: 0.9, ease: "power2.in",
+            duration: 0.4,
+            autoAlpha: 0,
+            scale: 0.9,
+            ease: "power2.in",
             onComplete: () => {
                 playWarpTransition(() => {
                     currentIndex++;
                     if (currentIndex >= algoritmos.length) {
                         currentIndex = 0;
                     }
-                    
+
                     window.currentIndex = currentIndex;
                     updateAlgorithmView(currentIndex);
 
@@ -142,11 +155,32 @@ $(document).ready(function() {
                         backToStartBtn.removeClass('hidden');
                     }
 
-                    gsap.fromTo('.algoritmos', { scale: 0.5, autoAlpha: 0 }, { duration: 1.5, scale: 1, autoAlpha: 1, ease: "power2.out", delay: 1.0 });
+                    gsap.fromTo('.algoritmos', {
+                        scale: 0.5,
+                        autoAlpha: 0
+                    }, {
+                        duration: 1.5,
+                        scale: 1,
+                        autoAlpha: 1,
+                        ease: "power2.out",
+                        delay: 1.0,
+                        onComplete: () => {
+                            // 2. Anima o botão para reaparecer (se não for o último)
+                            if (currentIndex !== algoritmos.length - 1) {
+                                gsap.to(button, {
+                                    autoAlpha: 1,
+                                    y: 0,
+                                    duration: 0.5,
+                                    delay: 0.2
+                                });
+                            }
+                        }
+                    });
                 });
             }
         });
     });
+
 
     $('#back-to-start-btn').on('click', function() {
         gsap.to('#journey-container', {
@@ -240,6 +274,7 @@ $(document).ready(function() {
         }
     }
 
+    applyButtonAnimation(startJourneyBtn); 
     applyButtonAnimation(nextAlgoBtn);
     applyButtonAnimation(backToStartBtn);
 

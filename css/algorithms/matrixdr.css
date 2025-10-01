@@ -7,16 +7,23 @@
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    color: var(--white);
+    background-color: var(--background-light);
+    color: var(--text-dark);
     gap: 20px;
+    border-radius: 1rem;
+}
+
+
+#matrix-dr-container .example-title {
+    color: var(--text-dark);
 }
 
 .matrix-grid {
     display: grid;
     grid-template-columns: repeat(5, 50px);
-    grid-template-rows: repeat(4, 50px); 
+    grid-template-rows: repeat(4, 50px);
     gap: 5px;
-    background-color: #333;
+    background-color: var(--background-light);
     padding: 10px;
     border-radius: 8px;
     position: relative;
@@ -25,33 +32,29 @@
 .matrix-cell {
     width: 50px;
     height: 50px;
-    background-color: #555;
-    border: 1px solid #777;
+    background-color: var(--text-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
     border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 0.9em;
     font-weight: bold;
-    transition: background-color 0.4s ease;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .matrix-cell.start {
-    background-color: var(--white);
-    color: var(--white);
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    font-weight: bold;
 }
 
 .matrix-cell.visited {
-    background-color: #9307e4; 
-    color: #333;
-}
-
-.matrix-cell.visited {
-    background-color: #9307e4;
-    color:  var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
 }
 
 .vectors-display {
@@ -64,8 +67,8 @@
 }
 
 .vector-group {
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
 }
@@ -83,8 +86,9 @@
 .vector-box {
     width: 40px;
     height: 40px;
-    background-color: #444;
-    border: 1px solid #666;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
     border-radius: 4px;
     display: flex;
     justify-content: center;
@@ -94,11 +98,24 @@
 }
 
 .vector-box.highlight {
-    background-color: #9307e4;
-    color: var(--white);
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
     transform: scale(1.15);
 }
 
-.animation-controls {
-    margin-top: 15px;
+#matrix-dr-container .btn-animate {
+    background-color: var(--text-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+#matrix-dr-container .btn-animate:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.matrixdr-ac{
+    padding: 0 !important;
+    margin: 0 !important;
 }

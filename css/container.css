@@ -7,7 +7,7 @@
     z-index: 0;
 }
 
-.about{
+.about {
     margin-top: 11rem;
     position: relative;
     z-index: 1;
@@ -19,11 +19,11 @@
 }
 
 .about p {
-    color: var(--gray-color);
+    color: var(--text-gray);
 }
 
 .title-animation .line {
-    display: block; 
+    display: block;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     font-family: 'KH Interference', sans-serif;
     font-weight: 700;
@@ -35,12 +35,11 @@
     transition: transform .5s;
 }
 
-.algoritmos{
+.algoritmos {
     z-index: 2;
 }
 
-
-.title2{
+.title2 {
     margin-left: 7rem;
 }
 

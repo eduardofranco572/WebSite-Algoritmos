@@ -351,7 +351,7 @@ public class Reforma {
             {
                 titulo: "Como Funciona?",
                 texto: "O funcionamento baseia-se em um 'deslocamento' (a chave), que é um número inteiro. Por exemplo, com um deslocamento de 3, a letra 'A' se torna 'D', 'B' vira 'E', e assim por diante. Ao chegar ao final do alfabeto, o processo continua do início. Para descriptografar, basta aplicar o mesmo deslocamento no sentido contrário.",
-                img: "../img/animacao_lupa.gif"
+                img: "../img/animacao_olhando.gif"
             },
             {
                 titulo: "Visualização",
@@ -360,7 +360,7 @@ public class Reforma {
             {
                 titulo: "Casos de Uso",
                 texto: "O principal caso de uso da Cifra de César hoje é no campo educacional. Por sua simplicidade, ela é uma ferramenta excelente e ainda muito utilizada para introduzir os conceitos básicos de criptografia, como cifragem, decifragem e o uso de chaves. Fora da aprendizagem, não tem uso prático para segurança, mas pode ser encontrada em quebra-cabeças e jogos simples.",
-                img: "../img/aanimacao_apontando.gif"
+                img: "../img/animacao_apontando.gif"
             }
         ],
         code: `
@@ -395,7 +395,7 @@ public class CaesarCipher {
             {
                 "titulo": "Como Funciona?",
                 "texto": "Para encontrar os vizinhos, um laço 'for' percorre os vetores de direção. Em cada iteração 'i', as coordenadas de um novo vizinho são calculadas somando a posição atual com os valores de dr[i] e dc[i]. Em seguida, um 'if' realiza validações essenciais para o algoritmo.",
-                "img": "../img/aanimacao_apontando.gif"
+                "img": "../img/animacao_apontando.gif"
             },
             {
                 "titulo": "Casos de Uso",

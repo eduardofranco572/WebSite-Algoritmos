@@ -25,8 +25,8 @@ function initMatrixDRAnimation() {
                     <div id="dc-vector" class="vector-boxes"></div>
                 </div>
             </div>
-            <div class="animation-controls">
-                <button id="animate-btn" class="btn-animate">
+            <div class="animation-controls matrixdr-ac">
+                <button id="animate-btn" class="btn-animate d-flex align-items-center justify-content-center fs-6 rounded-3 user-select-none">
                     <span class="material-symbols-outlined">play_arrow</span>
                     <span class="btn-text">Animar</span>
                 </button>

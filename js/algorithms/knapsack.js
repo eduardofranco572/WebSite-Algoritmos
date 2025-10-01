@@ -4,7 +4,7 @@ function initKnapsackAnimation() {
         return;
     }
 
-    container.html(''); 
+    container.html('');
 
     const items = [
         { id: 0, name: 'Joia', weight: 2, value: 20, img: './img/knapsack/gem.png' },
@@ -44,7 +44,10 @@ function initKnapsackAnimation() {
             </div>
         </div>
         <div class="knapsack-controls">
-            <button id="knapsack-animate-btn" class="btn-animate">Animar Solução</button>
+            <button id="animate-btn" class="btn-animate d-flex align-items-center justify-content-center fs-6 rounded-3 user-select-none">
+                <span class="material-symbols-outlined">play_arrow</span>
+                <span class="btn-text">Animar</span>
+            </button>
         </div>
     `;
     container.html(html);
@@ -65,48 +68,67 @@ function initKnapsackAnimation() {
 
     container.data('initialized', true);
 
-    $('#knapsack-animate-btn').on('click', function() {
-        $(this).prop('disabled', true).text('Animando...');
-        runKnapsackAnimation(items, capacity);
+    $('#animate-btn').on('click', function() {
+        runKnapsackAnimation(items, capacity, $(this));
     });
 }
 
-
+/**
+ * A função knapsack que estava faltando foi adicionada aqui.
+ * Esta função implementa o algoritmo 0/1 Knapsack usando programação dinâmica
+ * para encontrar o subconjunto de itens com o valor máximo.
+ */
 function knapsack(items, capacity) {
     const n = items.length;
+    // Cria uma tabela para armazenar os resultados dos subproblemas
     const dp = Array(n + 1).fill(0).map(() => Array(capacity + 1).fill(0));
 
+    // Constrói a tabela dp de baixo para cima
     for (let i = 1; i <= n; i++) {
+        const currentItem = items[i - 1];
         for (let w = 1; w <= capacity; w++) {
-            if (items[i - 1].weight <= w) {
-                dp[i][w] = Math.max(dp[i - 1][w], items[i - 1].value + dp[i - 1][w - items[i - 1].weight]);
-            } else {
+            if (currentItem.weight > w) {
+                // Se o item atual for mais pesado que a capacidade atual, não podemos incluí-lo
                 dp[i][w] = dp[i - 1][w];
+            } else {
+                // Senão, decidimos se incluímos o item ou não para maximizar o valor
+                const valueWithoutItem = dp[i - 1][w];
+                const valueWithItem = dp[i - 1][w - currentItem.weight] + currentItem.value;
+                dp[i][w] = Math.max(valueWithoutItem, valueWithItem);
             }
         }
     }
 
-    let res = dp[n][capacity];
+    // A solução final está em dp[n][capacity]. Agora, vamos rastrear os itens escolhidos.
+    const solution = [];
     let w = capacity;
-    const selectedItems = [];
-    for (let i = n; i > 0 && res > 0; i--) {
-        if (res !== dp[i - 1][w]) {
-            selectedItems.push(items[i - 1]);
-            res -= items[i - 1].value;
-            w -= items[i - 1].weight;
+    for (let i = n; i > 0 && w > 0; i--) {
+        if (dp[i][w] !== dp[i - 1][w]) {
+            const chosenItem = items[i - 1];
+            solution.unshift(chosenItem); // Adiciona no início para manter a ordem original
+            w -= chosenItem.weight;
         }
     }
-    return selectedItems.reverse();
+    return solution;
 }
 
-function runKnapsackAnimation(items, capacity) {
+
+function runKnapsackAnimation(items, capacity, btn) {
     const solution = knapsack(items, capacity);
     let currentWeight = 0;
     let currentValue = 0;
+    
+    const btnIcon = btn.find('.material-symbols-outlined');
+    const btnText = btn.find('.btn-text');
+
+    btn.prop('disabled', true);
+    btnText.text('Animando...');
 
     const tl = gsap.timeline({
         onComplete: () => {
-            $('#knapsack-animate-btn').text('Reiniciar').prop('disabled', false).off('click').on('click', () => {
+            btnIcon.text('replay');
+            btnText.text('Reiniciar');
+            btn.prop('disabled', false).off('click').on('click', () => {
                 $('#knapsack-animation-container').data('initialized', false);
                 initKnapsackAnimation();
             });
@@ -117,7 +139,6 @@ function runKnapsackAnimation(items, capacity) {
         const itemElement = $(`#item-${item.id}`);
         const backpackElement = $('.knapsack-backpack-img');
         
-        // Calcula a posição da mochila em relação ao contêiner
         const targetX = backpackElement.offset().left - itemElement.offset().left + (backpackElement.width() / 2) - (itemElement.width() / 2);
         const targetY = backpackElement.offset().top - itemElement.offset().top + (backpackElement.height() / 2) - (itemElement.height() / 2);
 
@@ -126,7 +147,7 @@ function runKnapsackAnimation(items, capacity) {
             borderColor: '#9307e4',
             duration: 0.5,
             ease: 'power2.out',
-            zIndex: 10 // Garante que o item fique na frente durante a animação
+            zIndex: 10
         }, "+=0.5")
         .to(itemElement, {
             x: targetX,
