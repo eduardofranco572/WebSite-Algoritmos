@@ -45,7 +45,11 @@ function initCaesarCipherAnimation() {
     const originalAlphabetDiv = document.getElementById('original-alphabet');
     const shiftedAlphabetDiv = document.getElementById('shifted-alphabet');
     
-    originalAlphabetDiv.innerHTML = alphabet.map(l => `<div class="letter-box d-inline-flex align-items-center justify-content-center" id="orig-${l}">${l}</div>`).join('');
+    originalAlphabetDiv.innerHTML = alphabet.map(l => 
+        `<div class="letter-box d-inline-flex align-items-center justify-content-center" id="orig-${l}">
+            ${l}
+        </div>`
+    ).join('');
 
     function updateShiftedAlphabet(shiftValue, operation) {
         let actualShift = shiftValue;
@@ -57,7 +61,10 @@ function initCaesarCipherAnimation() {
         shiftedAlphabetDiv.innerHTML = alphabet.map((l, i) => {
             const shiftedIndex = (i + normalizedShift) % 26;
             const shiftedLetter = alphabet[shiftedIndex];
-            return `<div class="letter-box d-inline-flex align-items-center justify-content-center" id="shifted-${l}" data-original="${l}" data-shifted-target="${shiftedLetter}">${shiftedLetter}</div>`;
+            return `
+            <div class="letter-box d-inline-flex align-items-center justify-content-center" id="shifted-${l}" data-original="${l}" data-shifted-target="${shiftedLetter}">
+                ${shiftedLetter}
+            </div>`;
         }).join('');
     }
 

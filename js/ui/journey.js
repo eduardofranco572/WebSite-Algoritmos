@@ -21,14 +21,12 @@ $(document).ready(function() {
         const carouselTrack = $('.carousel-track');
         const exampleContainer = $('#example-content-container');
 
-        // Limpa o conteúdo anterior
         carouselTrack.empty();
         let carouselItemsHTML = '';
 
         const titleClass = "fs-2 fw-bold";
         const textClass = "fs-6 text-justify";
 
-        // Loop para criar cada slide
         algo.explicacao.forEach(slide => {
             const itemClasses = "carousel-item w-100 flex-shrink-0 d-flex flex-column align-items-center justify-content-center text-center";
 
@@ -76,10 +74,8 @@ $(document).ready(function() {
 
         carouselTrack.html(carouselItemsHTML);
 
-        // Atualiza a aba de exemplo
         exampleContainer.html(algo.exampleHtml || '<p style="color: #fff;">Exemplo não disponível.</p>');
 
-        // Garante que a primeira aba esteja ativa
         $('.opitons-menu-demo .menu-option').removeClass('active').first().addClass('active');
         $('.body-content').hide().first().show();
 
@@ -132,7 +128,6 @@ $(document).ready(function() {
     $('#next-algo-btn').on('click', function() {
         const button = $(this);
 
-        // 1. Anima o botão para desaparecer suavemente
         gsap.to(button, {
             autoAlpha: 0,
             y: 10,
@@ -169,7 +164,6 @@ $(document).ready(function() {
                         ease: "power2.out",
                         delay: 1.0,
                         onComplete: () => {
-                            // 2. Anima o botão para reaparecer (se não for o último)
                             if (currentIndex !== algoritmos.length - 1) {
                                 gsap.to(button, {
                                     autoAlpha: 1,
@@ -198,40 +192,11 @@ $(document).ready(function() {
                     $('<div id="particles-js"></div>').insertBefore('#starfield');
                 }
 
-                window.pJSDom = [];
-                particlesJS("particles-js", {
-                    particles: {
-                        number: { value: 80, density: { enable: true, value_area: 800 } },
-                        color: { value: "#ffffff" }, shape: { type: "circle" },
-                        opacity: { value: 0.5, random: false },
-                        size: { value: 3, random: true },
-                        line_linked: { enable: true, distance: 150, color: "#959595", opacity: 0.4, width: 1 },
-                        move: {
-                            enable: true,
-                            speed: 2,
-                            direction: "none",
-                            random: false,
-                            straight: false,
-                            out_mode: "out",
-                            bounce: false
-                        }},
-                        interactivity: {
-                            detect_on: "canvas",
-                            events: {
-                                onhover: { enable: true, mode: "grab" },
-                                onclick: { enable: true, mode: "push" },
-                                resize: true
-                            },
-                            modes: {
-                                grab: { distance: 140, line_linked: { opacity: 1 } },
-                                push: { particles_nb: 4 } } }, retina_detect: true });
+                initParticles();
 
                 $('header, main > .about').removeClass('hidden').removeAttr('style');
                 
-                gsap.fromTo(['header', 'main > .about', '.title-animation', '.text-animation'], 
-                    { opacity: 0 }, 
-                    { duration: 1, opacity: 1, delay: 0.5 }
-                );
+                gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 }); 
 
                 currentIndex = 0;
                 currentBgIndex = 0;

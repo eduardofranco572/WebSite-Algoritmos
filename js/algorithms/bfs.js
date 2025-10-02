@@ -21,13 +21,57 @@ function initBFSGraph() {
         elements: bfsElements.concat(bfsEdges),
 
         style: [
-            { selector: 'node', style: { 'background-color': '#555', 'label': 'data(id)', 'color': '#ccc', 'font-size': '12px', 'text-valign': 'center', 'text-halign': 'center', 'width': '30px', 'height': '30px', 'border-width': 2, 'border-color': '#888', 'transition-property': 'background-color, border-color, color', 'transition-duration': '0.5s' } },
-            { selector: 'edge', style: { 'width': 3, 'line-color': '#555', 'target-arrow-color': '#555', 'target-arrow-shape': 'triangle', 'curve-style': 'bezier', 'transition-property': 'line-color, target-arrow-color', 'transition-duration': '0.5s' } },
-            { selector: '.visited-node', style: { 'background-color': '#9307e4', 'border-color': '#ffffff', 'color': '#FFFFFF' } },
-            { selector: '.visited-edge', style: { 'line-color': '#9307e4', 'target-arrow-color': '#9307e4' } }
+            { 
+                selector: 'node', 
+                style: { 
+                    'background-color': '#555', 
+                    'label': 'data(id)', 
+                    'color': '#ccc', 
+                    'font-size': '12px', 
+                    'text-valign': 'center', 
+                    'text-halign': 'center', 
+                    'width': '30px', 
+                    'height': '30px', 
+                    'border-width': 2, 
+                    'border-color': '#888', 
+                    'transition-property': 'background-color, border-color, color', 
+                    'transition-duration': '0.5s' 
+                } 
+            },
+            { 
+                selector: 'edge', 
+                style: { 
+                    'width': 3, 
+                    'line-color': '#555', 
+                    'target-arrow-color': '#555', 
+                    'target-arrow-shape': 'triangle', 
+                    'curve-style': 'bezier', 
+                    'transition-property': 'line-color, target-arrow-color', 
+                    'transition-duration': '0.5s' 
+                } 
+            },
+            { 
+                selector: '.visited-node', 
+                style: { 
+                    'background-color': '#9307e4', 
+                    'border-color': '#ffffff', 
+                    'color': '#FFFFFF' 
+                } 
+            },
+            { 
+                selector: '.visited-edge', 
+                style: { 
+                    'line-color': '#9307e4', 
+                    'target-arrow-color': '#9307e4' 
+                } 
+            }
         ],
-        layout: { name: 'preset' },
-        zoomingEnabled: false, userPanningEnabled: false, autoungrabify: true
+        layout: { 
+            name: 'preset' 
+        },
+        zoomingEnabled: false, 
+        userPanningEnabled: false, 
+        autoungrabify: true
     });
 
     cyBFS.ready(function() {
@@ -43,11 +87,18 @@ function initBFSGraph() {
 function setupAnimationButton() {
     const btn = $('#animate-btn');
     const btnIcon = btn.find('.material-symbols-outlined');
-    const btnTextNode = btn.contents().filter(function() { return this.nodeType === 3; })[0];
+    const btnTextNode = btn.contents().filter(function() { 
+        return this.nodeType === 3; 
+    })[0];
     
-    bfsAnimationTimeline = gsap.timeline({ paused: true });
+    bfsAnimationTimeline = gsap.timeline({ 
+        paused: true 
+    });
 
-    const bfsResult = cyBFS.elements().bfs({ root: '#A', directed: false });
+    const bfsResult = cyBFS.elements().bfs({ 
+        root: '#A', 
+        directed: false 
+    });
     
     bfsResult.path.forEach((element, i) => {
         bfsAnimationTimeline.add(() => {

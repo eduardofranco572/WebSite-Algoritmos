@@ -9,7 +9,6 @@ function initMatrixDRAnimation() {
     const rows = 4;
     const cols = 5;
 
-    // --- HTML ATUALIZADO (sem o .matrix-marker) ---
     let html = `
         <div id="matrix-dr-container">
             <h2 class="example-title">Navegação em Matriz com Vetores dr/dc</h2>
@@ -62,7 +61,6 @@ function initMatrixDRAnimation() {
         dcVectorContainer.append(`<div class="vector-box" data-index="${index}">${val}</div>`);
     });
     
-    // O marcador não é mais adicionado aqui
     setupMatrixDRAnimationButton(matrix);
 }
 
@@ -109,8 +107,7 @@ function setupMatrixDRAnimationButton(matrix) {
             const nextCol = currentCol + dc[i];
             const vectorBoxDr = $(`#dr-vector .vector-box[data-index="${i}"]`);
             const vectorBoxDc = $(`#dc-vector .vector-box[data-index="${i}"]`);
-            
-            // --- MUDANÇA 1: Usando .call() para adicionar a classe 'highlight' instantaneamente ---
+
             window.matrixDRTimeline.call(() => {
                 vectorBoxDr.addClass('highlight');
                 vectorBoxDc.addClass('highlight');
@@ -125,9 +122,7 @@ function setupMatrixDRAnimationButton(matrix) {
                     yoyo: true,
                     duration: 0.4,
                     ease: "power2.inOut",
-                    // --- MUDANÇA 2: Adicionando a classe 'visited' diretamente com jQuery ---
                     onComplete: () => {
-                        // A classe 'matrix-cell' já existe, só precisamos adicionar 'visited'
                         nextCell.addClass('visited');
                     }
                 }, `step${i}+=0.3`);
@@ -136,7 +131,6 @@ function setupMatrixDRAnimationButton(matrix) {
                  window.matrixDRTimeline.to('.matrix-grid', { opacity: 0.5, repeat: 1, yoyo: true, duration: 0.3 }, `step${i}+=0.3`);
             }
             
-            // --- MUDANÇA 3: Usando .call() para remover a classe 'highlight' ---
             window.matrixDRTimeline.call(() => {
                 vectorBoxDr.removeClass('highlight');
                 vectorBoxDc.removeClass('highlight');

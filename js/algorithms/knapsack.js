@@ -73,25 +73,17 @@ function initKnapsackAnimation() {
     });
 }
 
-/**
- * A função knapsack que estava faltando foi adicionada aqui.
- * Esta função implementa o algoritmo 0/1 Knapsack usando programação dinâmica
- * para encontrar o subconjunto de itens com o valor máximo.
- */
 function knapsack(items, capacity) {
     const n = items.length;
-    // Cria uma tabela para armazenar os resultados dos subproblemas
+
     const dp = Array(n + 1).fill(0).map(() => Array(capacity + 1).fill(0));
 
-    // Constrói a tabela dp de baixo para cima
     for (let i = 1; i <= n; i++) {
         const currentItem = items[i - 1];
         for (let w = 1; w <= capacity; w++) {
             if (currentItem.weight > w) {
-                // Se o item atual for mais pesado que a capacidade atual, não podemos incluí-lo
                 dp[i][w] = dp[i - 1][w];
             } else {
-                // Senão, decidimos se incluímos o item ou não para maximizar o valor
                 const valueWithoutItem = dp[i - 1][w];
                 const valueWithItem = dp[i - 1][w - currentItem.weight] + currentItem.value;
                 dp[i][w] = Math.max(valueWithoutItem, valueWithItem);
@@ -99,13 +91,12 @@ function knapsack(items, capacity) {
         }
     }
 
-    // A solução final está em dp[n][capacity]. Agora, vamos rastrear os itens escolhidos.
     const solution = [];
     let w = capacity;
     for (let i = n; i > 0 && w > 0; i--) {
         if (dp[i][w] !== dp[i - 1][w]) {
             const chosenItem = items[i - 1];
-            solution.unshift(chosenItem); // Adiciona no início para manter a ordem original
+            solution.unshift(chosenItem);
             w -= chosenItem.weight;
         }
     }

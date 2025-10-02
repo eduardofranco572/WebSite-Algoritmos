@@ -26,21 +26,70 @@ function initDijkstraGraph() {
         container: document.getElementById('cy-graph'),
         elements: dijkstraNodes.concat(dijkstraEdges),
         style: [
-            // Estilo base (igual ao seu)
-            { selector: 'node', style: { 'background-color': '#555', 'label': 'data(id)', 'color': '#ccc', 'font-size': '12px', 'text-valign': 'center', 'width': '30px', 'height': '30px', 'border-width': 2, 'border-color': '#888', 'transition-property': 'background-color, border-color, color, transform', 'transition-duration': '0.4s' } },
-            { selector: 'edge', style: { 'width': 3, 'line-color': '#555', 'label': 'data(weight)', 'color': '#fff', 'font-size': '10px', 'text-background-color': '#555', 'text-background-opacity': 0.8, 'transition-property': 'line-color', 'transition-duration': '0.4s' } },
+            // Estilo base
+            { 
+                selector: 'node', 
+                style: { 
+                    'background-color': '#555', 
+                    'label': 'data(id)', 
+                    'color': '#ccc', 
+                    'font-size': '12px', 
+                    'text-valign': 'center', 
+                    'width': '30px', 
+                    'height': '30px', 
+                    'border-width': 2, 
+                    'border-color': '#888', 
+                    'transition-property': 'background-color, border-color, color, transform', 
+                    'transition-duration': '0.4s' 
+                } 
+            },
+            { 
+                selector: 'edge', 
+                style: { 
+                    'width': 3, 
+                    'line-color': '#555', 
+                    'label': 'data(weight)', 
+                    'color': '#fff', 
+                    'font-size': '10px', 
+                    'text-background-color': '#555', 
+                    'text-background-opacity': 0.8, 
+                    'transition-property': 'line-color', 
+                    'transition-duration': '0.4s' 
+                } 
+            },
             
-            // Estilo para o nó "visitado" (igual ao seu)
-            { selector: '.visited-node', style: { 'background-color': '#9307e4', 'border-color': '#ffffff', 'color': '#FFFFFF' } },
+            // Estilo para o nó "visitado"
+            { 
+                selector: '.visited-node', 
+                style: { 
+                    'background-color': '#9307e4', 
+                    'border-color': '#ffffff', 
+                    'color': '#FFFFFF' 
+                } 
+            },
             
-            // Estilo para a aresta "visitada" (igual ao seu)
-            { selector: '.visited-edge', style: { 'line-color': '#9307e4' } },
+            // Estilo para a aresta "visitada"
+            { 
+                selector: '.visited-edge', 
+                style: { 
+                    'line-color': '#9307e4' 
+                } 
+            },
 
             // Classe temporária para destacar o nó atual sem mudar a cor
-            { selector: '.current', style: { 'transform': 'scale(1.25)' } }
+            { 
+                selector: '.current', 
+                style: { 
+                    'transform': 'scale(1.25)' 
+                } 
+            }
         ],
-        layout: { name: 'preset' },
-        zoomingEnabled: false, userPanningEnabled: false, autoungrabify: true
+        layout: { 
+            name: 'preset' 
+        },
+        zoomingEnabled: false, 
+        userPanningEnabled: false, 
+        autoungrabify: true
     });
 
     cyDijkstra.ready(() => {
@@ -52,38 +101,44 @@ function initDijkstraGraph() {
     return cyDijkstra; 
 }
 
-// Função que executa o algoritmo e retorna os passos da animação
 function getDijkstraAnimationSteps(startId, endId) {
     const distances = {};
     const previous = {};
     const pq = new Set(cyDijkstra.nodes().map(n => n.id())); // Nós a visitar
     const animationSteps = [];
 
-    // Inicialização
     cyDijkstra.nodes().forEach(node => {
         distances[node.id()] = Infinity;
         previous[node.id()] = null;
     });
+
     distances[startId] = 0;
 
     while (pq.size > 0) {
-        // Encontra o nó com a menor distância na fila
         let uId = [...pq].reduce((min, current) => distances[current] < distances[min] ? current : min);
         pq.delete(uId);
         
-        // Passo 1: Destaca o nó atual aumentando seu tamanho
-        animationSteps.push({ action: 'setCurrent', elementId: uId });
+        animationSteps.push({ 
+            action: 'setCurrent', elementId: uId 
+        });
 
-        // Passo 2: Marca o nó e a aresta que leva a ele como "visitados" (pinta de roxo)
         if (previous[uId]) {
-             animationSteps.push({ action: 'setVisited', elementIds: [uId, previous[uId].edge] });
+             animationSteps.push({ 
+                action: 'setVisited', 
+                elementIds: [
+                    uId, 
+                    previous[uId].edge
+                ] 
+            });
         } else {
-             animationSteps.push({ action: 'setVisited', elementIds: [uId] }); // Nó inicial não tem aresta anterior
+             animationSteps.push({ 
+                action: 'setVisited', 
+                elementIds: [uId] 
+            });
         }
         
         if (uId === endId) break;
 
-        // Relaxamento das arestas
         const uNode = cyDijkstra.getElementById(uId);
         uNode.connectedEdges(`[source = "${uId}"]`).forEach(edge => {
             const vId = edge.target().id();
@@ -96,8 +151,10 @@ function getDijkstraAnimationSteps(startId, endId) {
             }
         });
         
-        // Passo 3: Remove o destaque de "atual"
-        animationSteps.push({ action: 'unsetCurrent', elementId: uId });
+        animationSteps.push({ 
+            action: 'unsetCurrent', 
+            elementId: uId 
+        });
     }
     
     return animationSteps;
@@ -106,13 +163,18 @@ function getDijkstraAnimationSteps(startId, endId) {
 function setupDijkstraAnimationButton() {
     const btn = $('#animate-btn');
     const btnIcon = btn.find('.material-symbols-outlined');
-    const btnTextNode = btn.contents().filter(function() { return this.nodeType === 3; })[0];
+    const btnTextNode = btn.contents().filter(function() { 
+        return this.nodeType === 3; 
+    })[0];
     
     function resetAnimation() {
         cyDijkstra.elements().removeClass('visited-node visited-edge current');
         btnIcon.text('play_arrow');
         if (btnTextNode) btnTextNode.nodeValue = ' Animar';
-        btn.prop('disabled', false).css({ 'background-color': '#f0f0f0', 'color': '#0e0416' });
+        btn.prop('disabled', false).css({ 
+            'background-color': '#f0f0f0', 
+            'color': '#0e0416' 
+        });
         if (dijkstraAnimationTimeline) dijkstraAnimationTimeline.kill();
     }
 
@@ -130,7 +192,6 @@ function setupDijkstraAnimationButton() {
         const animationSteps = getDijkstraAnimationSteps('A', 'F');
         dijkstraAnimationTimeline = gsap.timeline();
 
-        // Constrói a timeline de animação com base nos passos
         animationSteps.forEach(step => {
             dijkstraAnimationTimeline.add(() => {
                 switch(step.action) {
@@ -150,14 +211,19 @@ function setupDijkstraAnimationButton() {
             }, '+=0.4');
         });
 
-        // Configura o botão para o estado de "reiniciar" no final
         dijkstraAnimationTimeline.eventCallback("onComplete", () => {
             btnIcon.text('replay');
             if (btnTextNode) btnTextNode.nodeValue = ' Reiniciar';
-            btn.prop('disabled', false).css({ 'background-color': '#555', 'color': '#f0f0f0' });
+            btn.prop('disabled', false).css({ 
+                'background-color': '#555', 
+                'color': '#f0f0f0' 
+            });
         });
 
-        $(this).prop('disabled', true).css({ 'background-color': '#333', 'color': '#ffffff' });
+        $(this).prop('disabled', true).css({ 
+            'background-color': '#333', 
+            'color': '#ffffff' 
+        });
         dijkstraAnimationTimeline.play();
     });
 }

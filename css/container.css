@@ -64,9 +64,6 @@
     z-index: -1;
 }
 
-
-/* Container */
-
 .container-details {
     display: flex;
     flex-direction: column;

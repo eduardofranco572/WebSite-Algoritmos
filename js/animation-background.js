@@ -46,7 +46,7 @@ class Star {
 
 let speed = 0.2;
 let targetSpeed = 0.2;
-const warpSpeed = 40; // Aumentei a velocidade máxima
+const warpSpeed = 40;
 const warpDuration = 1500; 
 
 for (let i = 0; i < numStars; i++) {
@@ -56,13 +56,12 @@ for (let i = 0; i < numStars; i++) {
 function triggerWarp() {
     gsap.to({ val: targetSpeed }, {
         val: warpSpeed,
-        duration: warpDuration / 1000, // Convertendo ms para segundos
-        ease: "power2.in", // Easing para simular aceleração
+        duration: warpDuration / 1000,
+        ease: "power2.in",
         onUpdate: function() {
             targetSpeed = this.targets()[0].val;
         },
         onComplete: function() {
-            // volta ao normal
             gsap.to({ val: targetSpeed }, {
                 val: 0.2,
                 duration: 1.0,
@@ -78,8 +77,6 @@ function triggerWarp() {
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // A interpolação de velocidade com o triggerWarp
     speed = targetSpeed;
 
     for (const star of stars) {
