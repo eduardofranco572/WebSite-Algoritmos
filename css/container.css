@@ -18,6 +18,14 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
+.title-animation {
+    opacity: 0;
+}
+
+#start-journey-btn {
+    visibility: hidden;
+}
+
 .about p {
     color: var(--text-gray);
 }
@@ -27,6 +35,10 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     font-family: 'KH Interference', sans-serif;
     font-weight: 700;
+}
+
+.text-animation {
+    opacity: 0;
 }
 
 .title-animation .char {
@@ -50,4 +62,104 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+}
+
+
+/* Container */
+
+.container-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    background-color: var(--background-dark);
+    border-radius: 7rem 7rem 0 0;
+}
+
+.container-details > div {
+    width: 100%;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title-alg{
+    color: #adadad;
+    font-size: 2rem;
+    font-family: 'KH Interference', sans-serif;
+    font-weight: 700;
+}
+
+.text-alg{
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-gray);
+    text-align: center;
+    margin-top: 0.8rem;
+    max-width: 40rem;
+}
+
+.cards-alg{
+    max-width: 800px;
+    margin-top: 3rem;
+}
+
+.card-alg {
+    width: 14rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.card-alg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    border-radius: 1rem;
+    background: radial-gradient(circle at 50% 0%, rgba(147, 7, 228, 0.4) 0%, #1a0429 45%);
+    transition: box-shadow 0.3s ease;
+}
+
+.card-alg img,
+.card-alg h1 {
+    position: relative;
+    z-index: 1;
+}
+
+.card-alg img {
+    width: 6rem;
+    height: 6rem;
+}
+
+.card-alg h1 {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+}
+
+.card-alg:hover {
+    transition: 0.5s;
+    box-shadow: 0 0 25px rgba(147, 7, 228, 0.5);
+}
+
+.general-algorithms{
+    margin-top: 10rem;
+}
+    
+.initially-hidden {
+    display: none;
 }

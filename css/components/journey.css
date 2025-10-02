@@ -64,6 +64,7 @@
 #start-journey-btn {
     animation: pulse-animation 2.5s infinite ease-in-out;
     margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 #start-journey-btn:hover .material-symbols-outlined {
