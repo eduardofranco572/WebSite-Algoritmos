@@ -208,12 +208,11 @@ $(document).ready(function() {
                     $('<div id="particles-js"></div>').insertBefore('#starfield');
                 }
 
-                window.pJSDom = [];
                 initParticles();
 
-                $('header, main > .about, .container-details').removeClass('hidden').removeAttr('style');
-            
-                gsap.fromTo(['header', 'main > .about', '.container-details'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 });
+                $('header, main > .about').removeClass('hidden').removeAttr('style');
+
+                gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 });
 
                 currentIndex = 0;
                 currentBgIndex = 0;
