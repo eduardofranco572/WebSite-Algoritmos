@@ -99,16 +99,21 @@ $(window).on('load', function() {
 
     initParticles();
 
+    /**
+     * Animação do titulo about.
+     */
     $(".title-animation .line").each(function() {
         const line = $(this);
         const text = line.text();
         const chars = text.split("").map(char => (char === " " ? " " : `<span class="char">${char}</span>`)).join("");
         line.html(chars);
     });
+
     gsap.set(".title-animation .char", {
         y: 115
     });
 
+    
     const introTl = gsap.timeline({
         onComplete: () => {
             $('.container-details').removeClass('initially-hidden');
