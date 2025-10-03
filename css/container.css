@@ -73,7 +73,6 @@
     align-items: center;
     margin-top: 10rem;
     padding-top: 6rem;
-    padding-bottom: 6rem;
     width: 100%;
     position: relative;
     z-index: 2;
@@ -155,11 +154,147 @@
     transition: 0.5s;
     box-shadow: 0 0 25px rgba(147, 7, 228, 0.5);
 }
+ 
+.initially-hidden {
+    display: none;
+}
 
 .general-algorithms{
     margin-top: 10rem;
+    gap: 2rem;
 }
-    
-.initially-hidden {
-    display: none;
+
+.img-ilustration-agb img{
+    width: 22rem;
+    height: 15rem;
+    user-select: none;
+}
+
+.img-ilustration-outros-agb img{
+    width: 26rem;
+    height: 26rem;
+    user-select: none;
+}
+
+.info-agb{
+    max-width: 26rem;
+    margin-left: 4rem;
+}
+
+.info-agb h1{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.info-agb p{
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+}
+
+.footer {
+    width: 90%;
+    border-top: 1px solid var(--text-gray); 
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-top: 4rem; 
+}
+
+.container-footer {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.infos-footer {
+    flex: 1;
+}
+
+.infos-footer p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin: 0; 
+    line-height: 1.5;
+}
+
+.logo-footer h1 {
+    font-size: 1.2rem;
+    font-family: 'KH Interference', sans-serif;
+    font-weight: 700;
+    margin: 0; 
+    color: var(--text-light);
+}
+
+.links-footer img {
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    user-select: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.links-footer img:hover {
+    transform: translateY(-5px);
+}
+
+.alg-graph-about-mobile{
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .alg-graph-about,
+    .alg-graph-about-mobile {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .alg-graph-about-mobile{
+        display: flex !important;
+    }
+
+    .aga-pc{
+        display: none !important;
+    }
+
+    .info-agb {
+        align-items: center !important;
+        margin-top: 2rem;
+        margin-left: 0;
+    }
+
+    .info-agb p {
+        text-align: center;
+    }
+
+    .title-alg {
+        font-size: 1.3rem;
+    }
+
+    .text-alg {
+        font-size: 0.8rem;
+        max-width: 26rem;
+    }
+
+    .title2 {
+        margin-left: 1rem;
+    }
+
+    .menu {
+        padding: 0 !important;
+    }
+
+    .menu > nav > ul {
+        padding-left: 0rem !important;
+    }
+
+    .menu > nav > ul > li {
+        margin-left: 0.5rem !important;
+    }
+
+    .container-details {
+        border-radius: 2rem 2rem 0 0;
+    }
 }

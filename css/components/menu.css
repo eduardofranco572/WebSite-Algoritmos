@@ -21,12 +21,18 @@ ul li {
     font-weight: 500;
     cursor: pointer;
     user-select: none;
-    color: var(--text-gray);
     position: relative;
     padding-bottom: 5px;
 }
 
-ul li::after {
+ul li a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.4s ease-out;
+}
+
+
+ul li a::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -39,11 +45,11 @@ ul li::after {
     transition: transform 0.4s ease-out;
 }
 
-ul li:hover::after {
+ul li:hover a::after {
     transform: scaleX(1);
     transform-origin: left;
 }
 
-ul li:hover {
+ul li:hover a {
     color: var(--text-light);
 }
