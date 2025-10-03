@@ -9,19 +9,23 @@
  <div align="center">
      <h1>Imagens do Projeto</h1>
     <br>
-    <img src="/imagensDemo/container.jpeg">
+    <img src="/img/demo1.jpeg">
     <br>
     <br>
-     <img src="/imagensDemo/status.jpeg">  
+     <img src="/img/demo2.jpeg">  
     <br>
     <br>
-     <img src="/imagensDemo/mobile.png">  
+     <img src="/img/demo3.jpeg">  
     <br>
  </div>
+
    
 <br>
-
+<div align="center">
+  
 ## Link para acessar: [Site online](https://algorithmsdetails.netlify.app/)
+
+</div>
 <br>
 
 <div align="start">
