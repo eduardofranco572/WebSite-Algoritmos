@@ -1,3 +1,6 @@
+/**
+ * Inicializa toda a interface do usuário e a lógica para a animação da Cifra de César.
+ */
 function initCaesarCipherAnimation() {
     const container = document.getElementById('caesar-animation-container');
     if (!container) return;
@@ -44,13 +47,18 @@ function initCaesarCipherAnimation() {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
     const originalAlphabetDiv = document.getElementById('original-alphabet');
     const shiftedAlphabetDiv = document.getElementById('shifted-alphabet');
-    
-    originalAlphabetDiv.innerHTML = alphabet.map(l => 
+
+    originalAlphabetDiv.innerHTML = alphabet.map(l =>
         `<div class="letter-box d-inline-flex align-items-center justify-content-center" id="orig-${l}">
             ${l}
         </div>`
     ).join('');
 
+    /**
+     * Atualiza a exibição do alfabeto deslocado com base na chave (shift) e na operação selecionada.
+     * @param {number} shiftValue O valor do deslocamento.
+     * @param {string} operation A operação ('encrypt' ou 'decrypt').
+     */
     function updateShiftedAlphabet(shiftValue, operation) {
         let actualShift = shiftValue;
         if (operation === 'decrypt') {
@@ -72,11 +80,15 @@ function initCaesarCipherAnimation() {
     const operationSelect = document.getElementById('caesar-operation');
     const outputDiv = document.getElementById('caesar-output');
 
+    /**
+     * Lê e valida os inputs do usuário (chave e operação) e atualiza a interface de acordo.
+     * Garante que a chave esteja dentro dos limites [-25, 25].
+     */
     const updateDisplay = () => {
         const currentValue = shiftInput.value;
         
         if (currentValue === '' || currentValue === '-') {
-            updateShiftedAlphabet(0, operationSelect.value); 
+            updateShiftedAlphabet(0, operationSelect.value);
             return;
         }
 
@@ -97,13 +109,26 @@ function initCaesarCipherAnimation() {
         document.querySelectorAll('.letter-box.highlight').forEach(el => el.classList.remove('highlight'));
     };
 
+    /**
+     * Evento de 'input' para o campo de chave (shift).
+     * Atualiza a exibição sempre que o valor da chave é alterado.
+     */
     shiftInput.addEventListener('input', updateDisplay);
+
+    /**
+     * Evento de 'change' para o seletor de operação.
+     * Atualiza a exibição sempre que a operação (criptografar/descriptografar) é alterada.
+     */
     operationSelect.addEventListener('change', updateDisplay);
 
     const animateBtn = document.getElementById('animate-btn');
     const btnIcon = animateBtn.querySelector('.material-symbols-outlined');
     const btnText = animateBtn.querySelector('.btn-text');
 
+    /**
+     * Adiciona o evento de clique ao botão, que executa a animação passo a passo
+     * da criptografia ou descriptografia do texto de entrada.
+     */
     animateBtn.addEventListener('click', async () => {
         const text = document.getElementById('caesar-input').value.toUpperCase();
         let shift = parseInt(document.getElementById('caesar-shift').value, 10);

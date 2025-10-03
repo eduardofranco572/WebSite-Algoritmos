@@ -1,6 +1,9 @@
+/**
+ * Inicializa a animação de navegação em matriz com vetores dr/dc.
+ */
 function initMatrixDRAnimation() {
     const container = $('#example-content-container');
-    container.html(''); 
+    container.html('');
 
     if (window.matrixDRTimeline) {
         window.matrixDRTimeline.kill();
@@ -60,10 +63,14 @@ function initMatrixDRAnimation() {
     dc.forEach((val, index) => {
         dcVectorContainer.append(`<div class="vector-box" data-index="${index}">${val}</div>`);
     });
-    
+
     setupMatrixDRAnimationButton(matrix);
 }
 
+/**
+ * Configura o botão de animação e a lógica da timeline de animação com GSAP.
+ * @param {Array<Array<number>>} matrix - A matriz de dados usada para a lógica de limites.
+ */
 function setupMatrixDRAnimationButton(matrix) {
     const btn = $('#animate-btn');
     const btnIcon = btn.find('.material-symbols-outlined');
@@ -74,17 +81,20 @@ function setupMatrixDRAnimationButton(matrix) {
     const dr = [-1, 1, 0, 0];
     const dc = [0, 0, -1, 1];
 
+    /**
+     * Reseta a animação para o estado inicial, limpando estilos e timelines.
+     */
     function resetAnimation() {
         if (window.matrixDRTimeline) {
             window.matrixDRTimeline.kill();
         }
-        
+
         $('.matrix-cell').removeClass('visited start').css('transform', '');
         $('.vector-box').removeClass('highlight');
-        
+
         const initialCell = $(`.matrix-cell[data-row="${initialRow}"][data-col="${initialCol}"]`);
         initialCell.addClass('start');
-        
+
         btnIcon.text('play_arrow');
         btnText.text('Animar');
         btn.prop('disabled', false);
@@ -92,9 +102,13 @@ function setupMatrixDRAnimationButton(matrix) {
 
     resetAnimation();
 
+    /**
+     * Evento de clique para o botão de animação.
+     * Inicia a animação da travessia da matriz se não estiver em andamento, ou a reinicia caso contrário.
+     */
     btn.off('click').on('click', function() {
         if (window.matrixDRTimeline && window.matrixDRTimeline.isActive()) return;
-        
+
         resetAnimation();
         const initialCell = $(`.matrix-cell[data-row="${initialRow}"][data-col="${initialCol}"]`);
 
@@ -116,7 +130,7 @@ function setupMatrixDRAnimationButton(matrix) {
             if (nextRow >= 0 && nextRow < matrix.length && nextCol >= 0 && nextCol < matrix[0].length) {
                 const nextCell = $(`.matrix-cell[data-row="${nextRow}"][data-col="${nextCol}"]`);
 
-                window.matrixDRTimeline.to(nextCell, { 
+                window.matrixDRTimeline.to(nextCell, {
                     scale: 1.2,
                     repeat: 1,
                     yoyo: true,
@@ -126,22 +140,22 @@ function setupMatrixDRAnimationButton(matrix) {
                         nextCell.addClass('visited');
                     }
                 }, `step${i}+=0.3`);
-                
+
             } else {
                  window.matrixDRTimeline.to('.matrix-grid', { opacity: 0.5, repeat: 1, yoyo: true, duration: 0.3 }, `step${i}+=0.3`);
             }
-            
+
             window.matrixDRTimeline.call(() => {
                 vectorBoxDr.removeClass('highlight');
                 vectorBoxDc.removeClass('highlight');
             }, [], `step${i}+=1.2`);
         }
-        
+
         window.matrixDRTimeline.eventCallback("onComplete", () => {
             btnIcon.text('replay');
             btnText.text('Reiniciar');
             btn.prop('disabled', false);
-            initialCell.removeClass('start'); 
+            initialCell.removeClass('start');
         });
 
         $(this).prop('disabled', true);

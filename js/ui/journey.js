@@ -14,8 +14,12 @@ $(document).ready(function() {
 
     const nextAlgoBtn = $("#next-algo-btn");
     const backToStartBtn = $("#back-to-start-btn");
-    const startJourneyBtn = $("#start-journey-btn"); 
+    const startJourneyBtn = $("#start-journey-btn");
 
+    /**
+     * Atualiza o conteúdo da página para exibir o algoritmo correspondente ao índice fornecido.
+     * @param {number} index - O índice do algoritmo a ser exibido.
+     */
     function updateAlgorithmView(index) {
         const algo = algoritmos[index];
         const carouselTrack = $('.carousel-track');
@@ -34,7 +38,7 @@ $(document).ready(function() {
                 carouselItemsHTML += `
                     <div class="${itemClasses}">
                         <h3 class="${titleClass}">${slide.titulo}</h3>
-                        <div class="d-flex justify-content-center align-items-center w-100">        
+                        <div class="d-flex justify-content-center align-items-center w-100">
                         <img class="w-100 h-100" style="max-width: 30rem;" src="${slide.imgExemple}" alt="Visualização do algoritmo">
                         </div>
                     </div>
@@ -45,12 +49,12 @@ $(document).ready(function() {
                     <div class="${itemClasses} with-image user-select-none">
                         <h3 class="${titleClass}">${slide.titulo}</h3>
                         <p class="${textClass}">${slide.texto}</p>
-                        <div class="image-container d-flex justify-content-end align-items-end"> 
+                        <div class="image-container d-flex justify-content-end align-items-end">
                             <img class="imgBolsa w-100 h-100" src="${slide.imgBolsa}" alt="Animação de uma bolsa">
                         </div>
                     </div>
                 `;
-                
+
             } else if (slide.img && slide.texto) {
                 carouselItemsHTML += `
                     <div class="${itemClasses} with-image">
@@ -82,6 +86,10 @@ $(document).ready(function() {
         initCustomCarousel();
     }
 
+    /**
+     * Executa a animação de transição "warp", mudando o background e executando um callback.
+     * @param {Function} onCompleteCallback - Função a ser executada no meio da transição.
+     */
     function playWarpTransition(onCompleteCallback) {
         const tl = gsap.timeline();
         tl.call(triggerWarp);
@@ -96,6 +104,9 @@ $(document).ready(function() {
         tl.to('#flash-overlay', { opacity: 0, duration: 1.5 }, "+=0.2");
     }
 
+    /**
+     * Evento de clique para o botão "Iniciar Jornada", que inicia a transição da introdução para a visualização dos algoritmos.
+     */
      $('#start-journey-btn').on('click', function() {
         if (window.introScrollTrigger) {
             window.introScrollTrigger.kill();
@@ -107,8 +118,8 @@ $(document).ready(function() {
             onComplete: function() {
                 $(this.targets()).addClass('hidden').css('display', 'none');
 
-                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) { 
-                    window.pJSDom[0].pJS.fn.vendors.destroypJS(); 
+                if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                    window.pJSDom[0].pJS.fn.vendors.destroypJS();
                 }
 
                 $('#particles-js').remove();
@@ -125,6 +136,9 @@ $(document).ready(function() {
         });
     });
 
+    /**
+     * Evento de clique para o botão "Próximo Algoritmo", que avança para o próximo algoritmo da lista.
+     */
     $('#next-algo-btn').on('click', function() {
         const button = $(this);
 
@@ -179,7 +193,9 @@ $(document).ready(function() {
         });
     });
 
-
+    /**
+     * Evento de clique para o botão "Voltar ao Início", que retorna à tela inicial.
+     */
     $('#back-to-start-btn').on('click', function() {
         gsap.to('#journey-container', {
             duration: 0.5, autoAlpha: 0, scale: 0.9, ease: "power2.in",
@@ -195,8 +211,8 @@ $(document).ready(function() {
                 initParticles();
 
                 $('header, main > .about').removeClass('hidden').removeAttr('style');
-                
-                gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 }); 
+
+                gsap.fromTo(['header', 'main > .about'], { opacity: 0 }, { duration: 1, opacity: 1, delay: 0.5 });
 
                 currentIndex = 0;
                 currentBgIndex = 0;
@@ -208,48 +224,61 @@ $(document).ready(function() {
 
     updateAlgorithmView(currentIndex);
 
+    /**
+     * Aplica um efeito de preenchimento animado em um botão ao passar o mouse.
+     * @param {jQuery} button - O botão ao qual a animação será aplicada.
+     */
     function applyButtonAnimation(button) {
         if (button.length) {
             const btnFill = button.find(".btn-viagem-fill");
 
-            button.on("mouseenter", function(e) { 
-                const rect = this.getBoundingClientRect(); 
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top; 
-                gsap.set(btnFill, { top: y, left: x }); 
-                gsap.to(btnFill, { 
-                    scale: 4, 
-                    duration: 0.4, 
+            /**
+             * Evento de entrada do mouse para iniciar a animação de preenchimento.
+             */
+            button.on("mouseenter", function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                gsap.set(btnFill, { top: y, left: x });
+                gsap.to(btnFill, {
+                    scale: 4,
+                    duration: 0.4,
                     ease: "power2.out",
-                    overwrite: 'auto' 
-                }); 
+                    overwrite: 'auto'
+                });
             });
 
-            button.on("mousemove", function(e) { 
-                const rect = this.getBoundingClientRect(); 
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top; 
-                
-                gsap.to(btnFill, { 
-                    top: y, 
-                    left: x, 
+            /**
+             * Evento de movimento do mouse para atualizar a posição do preenchimento.
+             */
+            button.on("mousemove", function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                gsap.to(btnFill, {
+                    top: y,
+                    left: x,
                     duration: 0.1,
-                    overwrite: 'auto' 
-                }); 
+                    overwrite: 'auto'
+                });
             });
 
-            button.on("mouseleave", function() { 
-                gsap.to(btnFill, { 
-                    scale: 0, 
-                    duration: 0.3, 
+            /**
+             * Evento de saída do mouse para reverter a animação de preenchimento.
+             */
+            button.on("mouseleave", function() {
+                gsap.to(btnFill, {
+                    scale: 0,
+                    duration: 0.3,
                     ease: "power2.in",
-                    overwrite: 'auto' 
-                }); 
+                    overwrite: 'auto'
+                });
             });
         }
     }
 
-    applyButtonAnimation(startJourneyBtn); 
+    applyButtonAnimation(startJourneyBtn);
     applyButtonAnimation(nextAlgoBtn);
     applyButtonAnimation(backToStartBtn);
 

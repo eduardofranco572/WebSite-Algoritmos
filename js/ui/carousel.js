@@ -1,3 +1,6 @@
+/**
+ * Inicializa o carrossel, configurando a navegação entre os slides.
+ */
 function initCustomCarousel() {
     const track = $('.carousel-track');
     const items = $('.carousel-item');
@@ -17,6 +20,9 @@ function initCustomCarousel() {
     
     let currentIndex = 0;
     
+    /**
+     * Atualiza a posição visual do carrossel com base no índice atual.
+     */
     function updateCarousel() {
         const newTransform = -currentIndex * 100;
         track.css('transform', `translateX(${newTransform}%)`);
@@ -25,6 +31,9 @@ function initCustomCarousel() {
     nextBtn.off('click');
     prevBtn.off('click');
 
+    /**
+     * Evento de clique para o botão "próximo" do carrossel.
+     */
     nextBtn.on('click', function() {
         currentIndex++;
         if (currentIndex >= totalItems) {
@@ -33,6 +42,9 @@ function initCustomCarousel() {
         updateCarousel();
     });
 
+    /**
+     * Evento de clique para o botão "anterior" do carrossel.
+     */
     prevBtn.on('click', function() {
         currentIndex--;
         if (currentIndex < 0) {
@@ -40,6 +52,6 @@ function initCustomCarousel() {
         }
         updateCarousel();
     });
-    
+    l
     updateCarousel();
 }

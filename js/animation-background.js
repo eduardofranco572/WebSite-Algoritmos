@@ -1,6 +1,9 @@
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 
+/**
+ * Redimensiona o canvas para preencher a janela do navegador.
+ */
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -47,12 +50,15 @@ class Star {
 let speed = 0.2;
 let targetSpeed = 0.2;
 const warpSpeed = 40;
-const warpDuration = 1500; 
+const warpDuration = 1500;
 
 for (let i = 0; i < numStars; i++) {
     stars.push(new Star());
 }
 
+/**
+ * Ativa o efeito de "warp", acelerando e desacelerando a velocidade das estrelas.
+ */
 function triggerWarp() {
     gsap.to({ val: targetSpeed }, {
         val: warpSpeed,
@@ -74,7 +80,9 @@ function triggerWarp() {
     });
 }
 
-
+/**
+ * Anima as estrelas no canvas, atualizando suas posições e redesenhando-as a cada quadro.
+ */
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     speed = targetSpeed;

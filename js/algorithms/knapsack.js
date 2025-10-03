@@ -1,3 +1,6 @@
+/**
+ * Inicializa a interface do usuário para a animação do Problema da Mochila.
+ */
 function initKnapsackAnimation() {
     const container = $('#knapsack-animation-container');
     if (!container.length || container.data('initialized')) {
@@ -68,11 +71,21 @@ function initKnapsackAnimation() {
 
     container.data('initialized', true);
 
+    /**
+     * Evento de clique para o botão de animação.
+     * Inicia a execução da animação do algoritmo da mochila.
+     */
     $('#animate-btn').on('click', function() {
         runKnapsackAnimation(items, capacity, $(this));
     });
 }
 
+/**
+ * Resolve o problema da mochila 0/1 usando programação dinâmica.
+ * @param {Array<Object>} items - A lista de itens disponíveis.
+ * @param {number} capacity - A capacidade máxima da mochila.
+ * @returns {Array<Object>} A lista de itens que compõem a solução ótima.
+ */
 function knapsack(items, capacity) {
     const n = items.length;
 
@@ -104,11 +117,18 @@ function knapsack(items, capacity) {
 }
 
 
+/**
+ * Executa a animação visual da solução do Problema da Mochila.
+ * Move os itens da solução para a mochila e atualiza o painel de status.
+ * @param {Array<Object>} items - A lista de todos os itens.
+ * @param {number} capacity - A capacidade da mochila.
+ * @param {jQuery} btn - O elemento do botão que iniciou a animação.
+ */
 function runKnapsackAnimation(items, capacity, btn) {
     const solution = knapsack(items, capacity);
     let currentWeight = 0;
     let currentValue = 0;
-    
+
     const btnIcon = btn.find('.material-symbols-outlined');
     const btnText = btn.find('.btn-text');
 
@@ -129,7 +149,7 @@ function runKnapsackAnimation(items, capacity, btn) {
     solution.forEach(item => {
         const itemElement = $(`#item-${item.id}`);
         const backpackElement = $('.knapsack-backpack-img');
-        
+
         const targetX = backpackElement.offset().left - itemElement.offset().left + (backpackElement.width() / 2) - (itemElement.width() / 2);
         const targetY = backpackElement.offset().top - itemElement.offset().top + (backpackElement.height() / 2) - (itemElement.height() / 2);
 
@@ -149,7 +169,7 @@ function runKnapsackAnimation(items, capacity, btn) {
             onComplete: () => {
                 currentWeight += item.weight;
                 currentValue += item.value;
-                
+
                 const newRow = `<tr><td>${item.name}</td><td>${item.weight}</td><td>${item.value}</td></tr>`;
                 $('.knapsack-table tbody').append(newRow);
                 $('#total-weight').text(currentWeight);

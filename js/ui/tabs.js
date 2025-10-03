@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    /**
+     * Evento de clique para as opções do menu.
+     * Troca o conteúdo exibido e inicializa funcionalidades específicas da aba ativa.
+     */
     $('.opitons-menu-demo .menu-option').on('click', function() {
         if ($(this).hasClass('active')) return;
 

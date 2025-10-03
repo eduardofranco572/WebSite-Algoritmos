@@ -1,9 +1,12 @@
 let cyBFS;
 let bfsAnimationTimeline;
 
+/**
+ * Inicializa e renderiza o grafo de exemplo para a demonstração do BFS (Busca em Largura).
+ */
 function initBFSGraph() {
     if (cyBFS) { cyBFS.destroy(); }
-    if (bfsAnimationTimeline) { bfsAnimationTimeline.kill(); } 
+    if (bfsAnimationTimeline) { bfsAnimationTimeline.kill(); }
 
     const bfsElements = [
         { data: { id: 'A' }, position: { x: 200, y: 50 } }, { data: { id: 'B' }, position: { x: 100, y: 150 } },
@@ -21,56 +24,56 @@ function initBFSGraph() {
         elements: bfsElements.concat(bfsEdges),
 
         style: [
-            { 
-                selector: 'node', 
-                style: { 
-                    'background-color': '#555', 
-                    'label': 'data(id)', 
-                    'color': '#ccc', 
-                    'font-size': '12px', 
-                    'text-valign': 'center', 
-                    'text-halign': 'center', 
-                    'width': '30px', 
-                    'height': '30px', 
-                    'border-width': 2, 
-                    'border-color': '#888', 
-                    'transition-property': 'background-color, border-color, color', 
-                    'transition-duration': '0.5s' 
-                } 
+            {
+                selector: 'node',
+                style: {
+                    'background-color': '#555',
+                    'label': 'data(id)',
+                    'color': '#ccc',
+                    'font-size': '12px',
+                    'text-valign': 'center',
+                    'text-halign': 'center',
+                    'width': '30px',
+                    'height': '30px',
+                    'border-width': 2,
+                    'border-color': '#888',
+                    'transition-property': 'background-color, border-color, color',
+                    'transition-duration': '0.5s'
+                }
             },
-            { 
-                selector: 'edge', 
-                style: { 
-                    'width': 3, 
-                    'line-color': '#555', 
-                    'target-arrow-color': '#555', 
-                    'target-arrow-shape': 'triangle', 
-                    'curve-style': 'bezier', 
-                    'transition-property': 'line-color, target-arrow-color', 
-                    'transition-duration': '0.5s' 
-                } 
+            {
+                selector: 'edge',
+                style: {
+                    'width': 3,
+                    'line-color': '#555',
+                    'target-arrow-color': '#555',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'transition-property': 'line-color, target-arrow-color',
+                    'transition-duration': '0.5s'
+                }
             },
-            { 
-                selector: '.visited-node', 
-                style: { 
-                    'background-color': '#9307e4', 
-                    'border-color': '#ffffff', 
-                    'color': '#FFFFFF' 
-                } 
+            {
+                selector: '.visited-node',
+                style: {
+                    'background-color': '#9307e4',
+                    'border-color': '#ffffff',
+                    'color': '#FFFFFF'
+                }
             },
-            { 
-                selector: '.visited-edge', 
-                style: { 
-                    'line-color': '#9307e4', 
-                    'target-arrow-color': '#9307e4' 
-                } 
+            {
+                selector: '.visited-edge',
+                style: {
+                    'line-color': '#9307e4',
+                    'target-arrow-color': '#9307e4'
+                }
             }
         ],
-        layout: { 
-            name: 'preset' 
+        layout: {
+            name: 'preset'
         },
-        zoomingEnabled: false, 
-        userPanningEnabled: false, 
+        zoomingEnabled: false,
+        userPanningEnabled: false,
         autoungrabify: true
     });
 
@@ -78,32 +81,35 @@ function initBFSGraph() {
         cyBFS.center();
         cyBFS.fit(undefined, 30);
     });
-    
+
     setupAnimationButton();
-    return cyBFS; 
+    return cyBFS;
 }
 
-
+/**
+ * Configura o botão de animação, cria a timeline da animação BFS com GSAP
+ * e define os eventos de clique para controlar a animação (iniciar, reiniciar).
+ */
 function setupAnimationButton() {
     const btn = $('#animate-btn');
     const btnIcon = btn.find('.material-symbols-outlined');
-    const btnTextNode = btn.contents().filter(function() { 
-        return this.nodeType === 3; 
+    const btnTextNode = btn.contents().filter(function() {
+        return this.nodeType === 3;
     })[0];
-    
-    bfsAnimationTimeline = gsap.timeline({ 
-        paused: true 
+
+    bfsAnimationTimeline = gsap.timeline({
+        paused: true
     });
 
-    const bfsResult = cyBFS.elements().bfs({ 
-        root: '#A', 
-        directed: false 
+    const bfsResult = cyBFS.elements().bfs({
+        root: '#A',
+        directed: false
     });
-    
+
     bfsResult.path.forEach((element, i) => {
         bfsAnimationTimeline.add(() => {
             element.addClass(element.isNode() ? 'visited-node' : 'visited-edge');
-        }, i * 0.5); 
+        }, i * 0.5);
     });
 
     bfsAnimationTimeline.eventCallback("onComplete", () => {
@@ -115,6 +121,9 @@ function setupAnimationButton() {
         });
     });
 
+    /**
+     * Reseta a animação para o estado inicial, limpando estilos e reiniciando a timeline.
+     */
     function resetAnimation() {
         cyBFS.elements().removeClass('visited-node visited-edge');
         btnIcon.text('play_arrow');
@@ -126,9 +135,13 @@ function setupAnimationButton() {
         });
         bfsAnimationTimeline.restart().pause();
     }
-    
+
     resetAnimation();
 
+    /**
+     * Evento de clique para o botão de animação.
+     * Inicia a animação se ela não estiver em andamento, ou a reinicia se já tiver sido concluída.
+     */
     btn.off('click').on('click', function() {
         if (bfsAnimationTimeline.isActive()) {
             return;
@@ -138,7 +151,7 @@ function setupAnimationButton() {
         } else {
             $(this).prop('disabled', true).css({
                 'background-color': '#333',
-                'color': '#ffffff' 
+                'color': '#ffffff'
             });
             bfsAnimationTimeline.play();
         }
